@@ -43,4 +43,22 @@ object ChatUtils {
         }
         return Tuple(true, fixedMessage)
     }
+
+    fun processBlockedChars(event: ServerChatEvent): Boolean {
+        if (PermissionsAPI.hasPermission(
+                event.username, "ess.chat.blockedchars.bypass"
+            )
+        ) return true
+
+        val blockedChars = ChatModelBase.chatModel.moderation.blockedChars
+        if (event.message.contains(blockedChars.iterator().next(), true)) {
+            sendMsg(
+                "chat",
+                event.player.commandSource,
+                "ess.chat.blocked_char"
+            )
+            return false
+        }
+        return true
+    }
 }

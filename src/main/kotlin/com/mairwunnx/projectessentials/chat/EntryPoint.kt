@@ -45,5 +45,10 @@ class EntryPoint : EssBase() {
                 blockedWordsResult.b
             }
         }
+
+        if (!ChatUtils.processBlockedChars(event)) {
+            event.isCanceled = true
+            return
+        }
     }
 }
