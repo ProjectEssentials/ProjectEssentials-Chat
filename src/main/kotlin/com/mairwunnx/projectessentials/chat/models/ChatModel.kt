@@ -4,13 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChatModel(
-    var moderation: Moderation
+    var moderation: Moderation = Moderation()
 ) {
     @Serializable
     data class Moderation(
-        var blockedWords: List<String>,
-        var blockedChars: List<String>,
-        var modifyBlockedWords: Boolean,
-        var blockedWordsMask: String
+        var blockedWords: MutableList<String> = mutableListOf("fuck", "shit"),
+        var blockedChars: List<String> = mutableListOf(),
+        var modifyBlockedWords: Boolean = true,
+        var blockedWordsMask: String = "**beep**"
     )
 }
