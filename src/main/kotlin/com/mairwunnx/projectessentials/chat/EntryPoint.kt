@@ -2,9 +2,11 @@ package com.mairwunnx.projectessentials.chat
 
 import com.mairwunnx.projectessentialscore.EssBase
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 
 @Suppress("unused")
+@Mod("project_essentials_chat")
 class EntryPoint : EssBase() {
     private val logger = LogManager.getLogger()
 
