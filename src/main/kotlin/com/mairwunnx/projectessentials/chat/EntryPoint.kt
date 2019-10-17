@@ -1,9 +1,12 @@
 package com.mairwunnx.projectessentials.chat
 
+import com.mairwunnx.projectessentials.chat.models.ChatModelBase
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraft.util.text.TextComponentUtils
+import net.minecraft.util.text.event.ClickEvent
+import net.minecraft.util.text.event.HoverEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -68,6 +71,24 @@ class EntryPoint : EssBase() {
             return
         }
 
-//        event.component = ChatUtils.processMessageColors(event)
+        val nicknameComponent = TextComponentUtils.toTextComponent {
+            ChatModelBase.chatModel.messaging.messagePattern.replace(
+                "%player", event.username
+            )
+        }.style.setClickEvent(
+            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/m ${event.username}")
+        ).setHoverEvent(HoverEvent(HoverEvent.Action.SHOW_ENTITY, event.component))
+
+        event.component = TextComponentUtils.toTextComponent {
+            ChatModelBase.chatModel.messaging.messagePattern.replace(
+                "%type", "~"
+            ).replace(
+                "%player", event.username
+            ).replace(
+                "%message", event.message
+            ).replace(
+                "&", "§"
+            )
+        }.setStyle(nicknameComponent)
     }
 }
