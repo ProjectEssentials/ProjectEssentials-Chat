@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
+import net.minecraft.util.text.TextComponentUtils
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -33,6 +34,16 @@ class EntryPoint : EssBase() {
             sendMsg("chat", event.player.commandSource, "chat.restricted")
             event.isCanceled = true
             return
+        }
+
+        val blockedWordsResult = ChatUtils.processBlockedWords(event)
+        if (!blockedWordsResult.a) {
+            event.isCanceled = true
+            return
+        } else {
+            event.component = TextComponentUtils.toTextComponent {
+                blockedWordsResult.b
+            }
         }
     }
 }
