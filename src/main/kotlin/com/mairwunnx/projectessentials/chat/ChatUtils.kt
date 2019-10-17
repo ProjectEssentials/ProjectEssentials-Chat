@@ -79,4 +79,14 @@ object ChatUtils {
         }
         return true
     }
+
+    fun isGlobalChat(event: ServerChatEvent): Boolean = event.message.startsWith('!')
+
+    fun getMessagePattern(event: ServerChatEvent): String {
+        return when {
+            !ChatModelBase.chatModel.messaging.enableRangedChat -> ChatModelBase.chatModel.messaging.messageCommonPattern
+            isGlobalChat(event) -> ChatModelBase.chatModel.messaging.messageGlobalPattern
+            else -> ChatModelBase.chatModel.messaging.messageLocalPattern
+        }
+    }
 }

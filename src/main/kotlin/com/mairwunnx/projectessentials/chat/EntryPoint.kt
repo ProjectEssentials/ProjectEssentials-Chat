@@ -1,12 +1,10 @@
 package com.mairwunnx.projectessentials.chat
 
-import com.mairwunnx.projectessentials.chat.models.ChatModelBase
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraft.util.text.TextComponentUtils
 import net.minecraft.util.text.event.ClickEvent
-import net.minecraft.util.text.event.HoverEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -72,23 +70,29 @@ class EntryPoint : EssBase() {
         }
 
         val nicknameComponent = TextComponentUtils.toTextComponent {
-            ChatModelBase.chatModel.messaging.messagePattern.replace(
+            ChatUtils.getMessagePattern(event).replace(
                 "%player", event.username
             )
         }.style.setClickEvent(
             ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/m ${event.username}")
-        ).setHoverEvent(HoverEvent(HoverEvent.Action.SHOW_ENTITY, event.component))
+        )
 
         event.component = TextComponentUtils.toTextComponent {
-            ChatModelBase.chatModel.messaging.messagePattern.replace(
-                "%type", "~"
+            ChatUtils.getMessagePattern(event).replace(
+                "%group", PermissionsAPI.getUserGroup(event.username).name
             ).replace(
                 "%player", event.username
             ).replace(
-                "%message", event.message
+                "%message", event.component.formattedText
             ).replace(
                 "&", "§"
             )
         }.setStyle(nicknameComponent)
+
+//        if (!ChatUtils.isGlobalChat(event)) {
+//            // get near player and send player messages
+//            event.isCanceled = true
+//            return
+//        }
     }
 }
