@@ -1,7 +1,11 @@
 package com.mairwunnx.projectessentials.chat
 
 import com.mairwunnx.projectessentialscore.EssBase
+import com.mairwunnx.projectessentialscore.extensions.sendMsg
+import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.ServerChatEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 
@@ -21,5 +25,14 @@ class EntryPoint : EssBase() {
 
     companion object {
         lateinit var modInstance: EntryPoint
+    }
+
+    @SubscribeEvent
+    fun onChatMessage(event: ServerChatEvent) {
+        if (!PermissionsAPI.hasPermission(event.username, "ess.chat")) {
+            sendMsg("chat", event.player.commandSource, "chat.restricted")
+            event.isCanceled = true
+            return
+        }
     }
 }
