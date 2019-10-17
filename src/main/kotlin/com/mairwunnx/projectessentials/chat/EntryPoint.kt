@@ -43,6 +43,7 @@ class EntryPoint : EssBase() {
                 }
             } else {
                 sendMsg("chat", event.player.commandSource, "chat.color_restricted")
+                event.isCanceled = true
                 return
             }
         }
