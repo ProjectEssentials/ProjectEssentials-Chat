@@ -50,5 +50,10 @@ class EntryPoint : EssBase() {
             event.isCanceled = true
             return
         }
+
+        if (!ChatUtils.processMessageLength(event)) {
+            event.isCanceled = true
+            return
+        }
     }
 }

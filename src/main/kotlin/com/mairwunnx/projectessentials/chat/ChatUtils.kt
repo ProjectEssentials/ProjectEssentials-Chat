@@ -34,7 +34,7 @@ object ChatUtils {
                     sendMsg(
                         "chat",
                         event.player.commandSource,
-                        "ess.chat.blocked_word",
+                        "chat.blocked_word",
                         it
                     )
                     return Tuple(false, String.empty)
@@ -55,7 +55,23 @@ object ChatUtils {
             sendMsg(
                 "chat",
                 event.player.commandSource,
-                "ess.chat.blocked_char"
+                "chat.blocked_char"
+            )
+            return false
+        }
+        return true
+    }
+
+    fun processMessageLength(event: ServerChatEvent): Boolean {
+        if (PermissionsAPI.hasPermission(
+                event.username, "ess.chat.messagelength.bypass"
+            )
+        ) return true
+
+        val maxLength = ChatModelBase.chatModel.moderation.maxMessageLength
+        if (event.message.length > maxLength) {
+            sendMsg(
+                "chat", event.player.commandSource, "chat.message_maxlength"
             )
             return false
         }

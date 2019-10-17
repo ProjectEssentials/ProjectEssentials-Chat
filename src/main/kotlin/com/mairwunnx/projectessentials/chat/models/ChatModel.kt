@@ -11,6 +11,7 @@ data class ChatModel(
         var blockedWords: MutableList<String> = mutableListOf("fuck", "shit"),
         var blockedChars: List<String> = mutableListOf(),
         var modifyBlockedWords: Boolean = true,
-        var blockedWordsMask: String = "**beep**"
+        var blockedWordsMask: String = "**beep**",
+        var maxMessageLength: Int = 128
     )
 }
