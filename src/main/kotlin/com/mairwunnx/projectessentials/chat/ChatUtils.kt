@@ -5,6 +5,8 @@ import com.mairwunnx.projectessentialscore.extensions.empty
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraft.util.Tuple
+import net.minecraft.util.text.ITextComponent
+import net.minecraft.util.text.Style
 import net.minecraftforge.event.ServerChatEvent
 
 object ChatUtils {
@@ -13,12 +15,12 @@ object ChatUtils {
         val blockedWordsMask = ChatModelBase.chatModel.moderation.blockedWordsMask
         val modifyBlockedWords = ChatModelBase.chatModel.moderation.modifyBlockedWords
 
-        var fixedMessage = event.message
+        var fixedMessage = event.message.toLowerCase()
 
         blockedWords.forEach {
-            if (event.message.contains(Regex(it, RegexOption.IGNORE_CASE)) ||
-                event.message.matches(Regex(it, RegexOption.IGNORE_CASE)) ||
-                event.message.contains(it, true)
+            if (fixedMessage.contains(Regex(it, RegexOption.IGNORE_CASE)) ||
+                fixedMessage.matches(Regex(it, RegexOption.IGNORE_CASE)) ||
+                fixedMessage.contains(it, true)
             ) {
                 if (PermissionsAPI.hasPermission(
                         event.username, "ess.chat.blockedwords.bypass"
@@ -51,13 +53,15 @@ object ChatUtils {
         ) return true
 
         val blockedChars = ChatModelBase.chatModel.moderation.blockedChars
-        if (event.message.contains(blockedChars.iterator().next(), true)) {
-            sendMsg(
-                "chat",
-                event.player.commandSource,
-                "chat.blocked_char"
-            )
-            return false
+        blockedChars.forEach {
+            if (event.message.contains(it)) {
+                sendMsg(
+                    "chat",
+                    event.player.commandSource,
+                    "chat.blocked_char"
+                )
+                return false
+            }
         }
         return true
     }
@@ -76,5 +80,14 @@ object ChatUtils {
             return false
         }
         return true
+    }
+
+    fun processMessageColors(event: ServerChatEvent): ITextComponent {
+        if (!PermissionsAPI.hasPermission(
+                event.username, "ess.chat.color"
+            )
+        ) return event.component
+
+        return event.component.setStyle(Style().setItalic(true))
     }
 }

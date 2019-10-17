@@ -55,5 +55,8 @@ class EntryPoint : EssBase() {
             event.isCanceled = true
             return
         }
+
+        event.component.style.italic = true
+//        event.component = ChatUtils.processMessageColors(event)
     }
 }
