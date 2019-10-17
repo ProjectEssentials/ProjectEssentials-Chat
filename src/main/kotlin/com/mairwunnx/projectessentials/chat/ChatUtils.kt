@@ -5,8 +5,6 @@ import com.mairwunnx.projectessentialscore.extensions.empty
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraft.util.Tuple
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.Style
 import net.minecraftforge.event.ServerChatEvent
 
 object ChatUtils {
@@ -80,14 +78,5 @@ object ChatUtils {
             return false
         }
         return true
-    }
-
-    fun processMessageColors(event: ServerChatEvent): ITextComponent {
-        if (!PermissionsAPI.hasPermission(
-                event.username, "ess.chat.color"
-            )
-        ) return event.component
-
-        return event.component.setStyle(Style().setItalic(true))
     }
 }

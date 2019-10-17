@@ -36,6 +36,17 @@ class EntryPoint : EssBase() {
             return
         }
 
+        if (event.message.contains("&")) {
+            if (PermissionsAPI.hasPermission(event.username, "ess.chat.color")) {
+                event.component = TextComponentUtils.toTextComponent {
+                    event.message.replace("&", "§")
+                }
+            } else {
+                sendMsg("chat", event.player.commandSource, "chat.color_restricted")
+                return
+            }
+        }
+
         val blockedWordsResult = ChatUtils.processBlockedWords(event)
         if (!blockedWordsResult.a) {
             event.isCanceled = true
@@ -56,7 +67,6 @@ class EntryPoint : EssBase() {
             return
         }
 
-        event.component.style.italic = true
 //        event.component = ChatUtils.processMessageColors(event)
     }
 }
