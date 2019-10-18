@@ -1,5 +1,6 @@
 package com.mairwunnx.projectessentials.chat
 
+import com.mairwunnx.projectessentials.chat.models.ChatModelBase
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
@@ -100,12 +101,12 @@ class EntryPoint : EssBase() {
         if (!ChatUtils.isGlobalChat(event)) {
             val players = event.player.serverWorld.getEntitiesWithinAABB(
                 event.player.entity.javaClass, AxisAlignedBB(
-                    event.player.posX - 50,
-                    event.player.posY - 50,
-                    event.player.posZ - 50,
-                    event.player.posX + 50,
-                    event.player.posY + 50,
-                    event.player.posZ + 50
+                    event.player.posX - ChatModelBase.chatModel.messaging.localChatRange / 2,
+                    event.player.posY - ChatModelBase.chatModel.messaging.localChatRange / 2,
+                    event.player.posZ - ChatModelBase.chatModel.messaging.localChatRange / 2,
+                    event.player.posX + ChatModelBase.chatModel.messaging.localChatRange / 2,
+                    event.player.posY + ChatModelBase.chatModel.messaging.localChatRange / 2,
+                    event.player.posZ + ChatModelBase.chatModel.messaging.localChatRange / 2
                 )
             )
             players.forEach {
