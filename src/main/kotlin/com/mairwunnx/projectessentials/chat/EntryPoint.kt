@@ -98,6 +98,21 @@ class EntryPoint : EssBase() {
             )
         }.setStyle(nicknameComponent)
 
+        val mentions = mutableListOf<String>()
+        Regex("@\\S[a-zA-Z0-9]*").findAll(event.component.formattedText).forEach {
+            mentions.add(it.value)
+        }
+        mentions.forEach {
+            event.component = TextComponentUtils.toTextComponent {
+                event.component.formattedText.replace(
+                    it, "§c@§b${it.replace("@", "")}${when {
+                        ChatUtils.isGlobalChat(event) -> "§f"
+                        else -> if (ChatUtils.isCommonChat()) "§f" else "§7§o"
+                    }}"
+                )
+            }
+        }
+
         if (!ChatUtils.isGlobalChat(event)) {
             val players = event.player.serverWorld.getEntitiesWithinAABB(
                 event.player.entity.javaClass, AxisAlignedBB(

@@ -84,6 +84,8 @@ object ChatUtils {
 
     fun isGlobalChat(event: ServerChatEvent): Boolean = event.message.startsWith('!')
 
+    fun isCommonChat(): Boolean = !ChatModelBase.chatModel.messaging.enableRangedChat
+
     fun getMessagePattern(event: ServerChatEvent): String {
         return when {
             !ChatModelBase.chatModel.messaging.enableRangedChat -> ChatModelBase.chatModel.messaging.messageCommonPattern
