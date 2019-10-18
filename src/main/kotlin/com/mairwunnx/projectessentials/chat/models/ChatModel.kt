@@ -14,7 +14,6 @@ data class ChatModel(
         var modifyBlockedWords: Boolean = true,
         var blockedWordsMask: String = "**beep**",
         var maxMessageLength: Int = 128
-
     )
 
     @Serializable

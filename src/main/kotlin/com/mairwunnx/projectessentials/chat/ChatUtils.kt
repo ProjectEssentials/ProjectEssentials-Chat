@@ -27,7 +27,9 @@ object ChatUtils {
 
                 if (modifyBlockedWords) {
                     if (blockedWordsMask.isNotEmpty()) {
-                        val newMessage = fixedMessage.replace(it, blockedWordsMask)
+                        val newMessage = fixedMessage.replace(it, blockedWordsMask).replace(
+                            Regex(it, RegexOption.IGNORE_CASE), blockedWordsMask
+                        )
                         fixedMessage = newMessage
                     }
                 } else {
