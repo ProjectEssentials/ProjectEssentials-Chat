@@ -1,0 +1,8 @@
+{
+  "project_essentials_chat.chat.disabled": "§7Сообщение не отправлено, чат отключен.",
+  "project_essentials_chat.chat.restricted": "§cУ вас §7нет прав §cна использование чата.",
+  "project_essentials_chat.chat.color_restricted": "§cУ вас §7нет прав §cна использование цветов в чате.",
+  "project_essentials_chat.chat.blocked_word": "§cСообщение не отправлено, ваше сообщение содержит заблокированное слово: \"§7%s\".",
+  "project_essentials_chat.chat.blocked_char": "§cСообщение не отправлено, ваше сообщение содержит заблокированный символ.",
+  "project_essentials_chat.chat.message_maxlength": "§cСообщение не отправлено, ваше сообщение превышает максимально допустимую длину."
+}
