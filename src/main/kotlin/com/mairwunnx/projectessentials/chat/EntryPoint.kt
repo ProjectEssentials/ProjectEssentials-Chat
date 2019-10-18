@@ -42,6 +42,12 @@ class EntryPoint : EssBase() {
 
     @SubscribeEvent
     fun onChatMessage(event: ServerChatEvent) {
+        if (!ChatModelBase.chatModel.messaging.chatEnabled) {
+            sendMsg("chat", event.player.commandSource, "chat.disabled")
+            event.isCanceled = true
+            return
+        }
+
         if (!PermissionsAPI.hasPermission(event.username, "ess.chat")) {
             sendMsg("chat", event.player.commandSource, "chat.restricted")
             event.isCanceled = true

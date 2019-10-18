@@ -23,7 +23,8 @@ data class ChatModel(
         var messageLocalPattern: String = "&8[&cLOCAL&8] &4┃ &8[&7%player&8]&7: &7§o%message",
         var messageCommonPattern: String = "&8[&7%player&8]&7: &f%message",
         var enableRangedChat: Boolean = true,
-        var localChatRange: Int = 100
+        var localChatRange: Int = 100,
+        var chatEnabled: Boolean = true
     )
 
     @Serializable
