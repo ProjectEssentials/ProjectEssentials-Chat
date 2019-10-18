@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.TextComponentUtils
 import net.minecraft.util.text.event.ClickEvent
 import net.minecraftforge.common.MinecraftForge
@@ -96,10 +97,22 @@ class EntryPoint : EssBase() {
             )
         }.setStyle(nicknameComponent)
 
-//        if (!ChatUtils.isGlobalChat(event)) {
-//            // get near player and send player messages
-//            event.isCanceled = true
-//            return
-//        }
+        if (!ChatUtils.isGlobalChat(event)) {
+            val players = event.player.serverWorld.getEntitiesWithinAABB(
+                event.player.entity.javaClass, AxisAlignedBB(
+                    event.player.posX - 50,
+                    event.player.posY - 50,
+                    event.player.posZ - 50,
+                    event.player.posX + 50,
+                    event.player.posY + 50,
+                    event.player.posZ + 50
+                )
+            )
+            players.forEach {
+                it.sendMessage(event.component)
+            }
+            event.isCanceled = true
+            return
+        }
     }
 }
