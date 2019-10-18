@@ -12,7 +12,7 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
     authors="MairwunNx (Pavel Erokhin)"
     description='''
     Project Essentials Chat - additional module for Essentials;
-    Just add ability to set and teleport to warps.
+    Just add ability to controlling chat actions on server and client.
     '''
 
 [[dependencies.projectessentialschat]]
