@@ -13,12 +13,12 @@ object ChatUtils {
         val blockedWordsMask = ChatModelBase.chatModel.moderation.blockedWordsMask
         val modifyBlockedWords = ChatModelBase.chatModel.moderation.modifyBlockedWords
 
-        var fixedMessage = event.message.toLowerCase()
+        var fixedMessage = event.message
 
         blockedWords.forEach {
-            if (fixedMessage.contains(Regex(it, RegexOption.IGNORE_CASE)) ||
-                fixedMessage.matches(Regex(it, RegexOption.IGNORE_CASE)) ||
-                fixedMessage.contains(it, true)
+            if (fixedMessage.toLowerCase().contains(Regex(it, RegexOption.IGNORE_CASE)) ||
+                fixedMessage.toLowerCase().matches(Regex(it, RegexOption.IGNORE_CASE)) ||
+                fixedMessage.toLowerCase().contains(it, true)
             ) {
                 if (PermissionsAPI.hasPermission(
                         event.username, "ess.chat.blockedwords.bypass"

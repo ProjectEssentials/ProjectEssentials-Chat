@@ -77,13 +77,20 @@ class EntryPoint : EssBase() {
             ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/m ${event.username}")
         )
 
+        // @MairwunNx -> &b@&dMairwunNx
+
         event.component = TextComponentUtils.toTextComponent {
             ChatUtils.getMessagePattern(event).replace(
                 "%group", PermissionsAPI.getUserGroup(event.username).name
             ).replace(
                 "%player", event.username
             ).replace(
-                "%message", event.component.formattedText
+                "%message",
+                if (ChatUtils.isGlobalChat(event)) {
+                    event.component.formattedText.drop(1)
+                } else {
+                    event.component.formattedText
+                }
             ).replace(
                 "&", "§"
             )
