@@ -11,6 +11,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import org.apache.logging.log4j.LogManager
 
 @Suppress("unused")
@@ -25,10 +26,18 @@ class EntryPoint : EssBase() {
         validateForgeVersion()
         logger.debug("Register event bus for $modName mod ...")
         MinecraftForge.EVENT_BUS.register(this)
+        ChatModelBase.loadData()
     }
 
     companion object {
         lateinit var modInstance: EntryPoint
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    @SubscribeEvent
+    fun onServerStopping(it: FMLServerStoppingEvent) {
+        logger.info("Shutting down $modName mod ...")
+        ChatModelBase.saveData()
     }
 
     @SubscribeEvent
