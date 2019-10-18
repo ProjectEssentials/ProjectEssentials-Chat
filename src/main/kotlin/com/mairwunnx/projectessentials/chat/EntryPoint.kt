@@ -76,7 +76,7 @@ class EntryPoint : EssBase() {
                 "%player", event.username
             )
         }.style.setClickEvent(
-            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "@${event.username} ")
+            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "!@${event.username} ")
         )
 
         event.component = TextComponentUtils.toTextComponent {
