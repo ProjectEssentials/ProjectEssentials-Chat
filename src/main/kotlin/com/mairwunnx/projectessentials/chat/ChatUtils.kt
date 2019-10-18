@@ -84,7 +84,7 @@ object ChatUtils {
 
     fun isGlobalChat(event: ServerChatEvent): Boolean = event.message.startsWith('!')
 
-    fun isCommonChat(): Boolean = !ChatModelBase.chatModel.messaging.enableRangedChat
+    private fun isCommonChat(): Boolean = !ChatModelBase.chatModel.messaging.enableRangedChat
 
     fun getMessagePattern(event: ServerChatEvent): String {
         return when {
@@ -92,5 +92,38 @@ object ChatUtils {
             isGlobalChat(event) -> ChatModelBase.chatModel.messaging.messageGlobalPattern
             else -> ChatModelBase.chatModel.messaging.messageLocalPattern
         }
+    }
+
+    fun getMessageColor(event: ServerChatEvent): String {
+        val messageRegex = Regex("(&.|§.){1,2}%message")
+        when {
+            isCommonChat() -> {
+                val targetVariable = messageRegex.find(
+                    ChatModelBase.chatModel.messaging.messageCommonPattern
+                )
+                return getMessageVariable(targetVariable!!, "§f")
+            }
+            else -> return if (isGlobalChat(event)) {
+                val targetVariable = messageRegex.find(
+                    ChatModelBase.chatModel.messaging.messageGlobalPattern
+                )
+
+                getMessageVariable(targetVariable!!, "§f")
+            } else {
+                val targetVariable = messageRegex.find(
+                    ChatModelBase.chatModel.messaging.messageLocalPattern
+                )
+                getMessageVariable(targetVariable!!, "§7§o")
+            }
+        }
+    }
+
+    private fun getMessageVariable(matchResult: MatchResult, callback: String): String {
+        return matchResult.groups[0]?.value
+            ?.removeRange(
+                matchResult.groups[0]?.value!!.lastIndexOf("%"),
+                matchResult.groups[0]?.value!!.length
+            )
+            ?.replace("&", "§") ?: callback
     }
 }

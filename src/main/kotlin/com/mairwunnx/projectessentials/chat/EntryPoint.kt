@@ -76,10 +76,8 @@ class EntryPoint : EssBase() {
                 "%player", event.username
             )
         }.style.setClickEvent(
-            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/m ${event.username}")
+            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "@${event.username} ")
         )
-
-        // @MairwunNx -> &b@&dMairwunNx
 
         event.component = TextComponentUtils.toTextComponent {
             ChatUtils.getMessagePattern(event).replace(
@@ -98,31 +96,37 @@ class EntryPoint : EssBase() {
             )
         }.setStyle(nicknameComponent)
 
+        val mentionSettings = ChatModelBase.chatModel.mentions
         val mentions = mutableListOf<String>()
-        Regex("@\\S[a-zA-Z0-9]*").findAll(event.component.formattedText).forEach {
-            mentions.add(it.value)
+        if (mentionSettings.mentionsEnabled) {
+            Regex("@\\S[a-zA-Z0-9]*").findAll(event.component.formattedText).forEach {
+                mentions.add(it.value)
+            }
         }
+        val anFormat = mentionSettings.mentionAtFormat.replace("&", "§")
+        val nameFormat = mentionSettings.mentionNameFormat.replace("&", "§")
         mentions.forEach {
             event.component = TextComponentUtils.toTextComponent {
                 event.component.formattedText.replace(
-                    it, "§c@§b${it.replace("@", "")}${when {
-                        ChatUtils.isGlobalChat(event) -> "§f"
-                        else -> if (ChatUtils.isCommonChat()) "§f" else "§7§o"
-                    }}"
+                    it,
+                    "$anFormat@$nameFormat${it.replace("@", "")}${ChatUtils.getMessageColor(event)}"
                 )
-            }
+            }.setStyle(nicknameComponent)
         }
 
         if (mentions.isNotEmpty()) {
-            event.player.server.playerList.players.forEach {
-                val sortedMentions = mentions.sorted()
-                if ("@${it.name.string}" in sortedMentions) {
-                    it.sendStatusMessage(
-                        TextComponentUtils.toTextComponent {
-                            "§7you are mentioned by §l§7${event.player.name.string}§7 player, in the chat."
-                        },
-                        true
-                    )
+            if (mentionSettings.mentionsEnabled && mentionSettings.mentionInActionBar) {
+                event.player.server.playerList.players.forEach {
+                    if ("@${it.name.string}" in mentions) {
+                        it.sendStatusMessage(
+                            TextComponentUtils.toTextComponent {
+                                mentionSettings.mentionMessage.replace(
+                                    "%player",
+                                    event.player.name.string
+                                ).replace("&", "§")
+                            }, true
+                        )
+                    }
                 }
             }
         }

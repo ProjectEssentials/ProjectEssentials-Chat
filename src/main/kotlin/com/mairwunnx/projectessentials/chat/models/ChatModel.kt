@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ChatModel(
     var moderation: Moderation = Moderation(),
-    var messaging: Messaging = Messaging()
+    var messaging: Messaging = Messaging(),
+    var mentions: Mentions = Mentions()
 ) {
     @Serializable
     data class Moderation(
@@ -23,5 +24,17 @@ data class ChatModel(
         var messageCommonPattern: String = "&8[&7%player&8]&7: &f%message",
         var enableRangedChat: Boolean = true,
         var localChatRange: Int = 100
+    )
+
+    @Serializable
+    data class Mentions(
+        var mentionsEnabled: Boolean = true,
+        var mentionInActionBar: Boolean = true,
+        /**
+         * todo: move to language resources.
+         */
+        var mentionMessage: String = "&7you are mentioned by &l&7%player&7 player, in the chat.",
+        var mentionAtFormat: String = "&c",
+        var mentionNameFormat: String = "&b"
     )
 }
