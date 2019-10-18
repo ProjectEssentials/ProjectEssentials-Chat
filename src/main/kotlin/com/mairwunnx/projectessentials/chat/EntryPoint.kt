@@ -113,6 +113,20 @@ class EntryPoint : EssBase() {
             }
         }
 
+        if (mentions.isNotEmpty()) {
+            event.player.server.playerList.players.forEach {
+                val sortedMentions = mentions.sorted()
+                if ("@${it.name.string}" in sortedMentions) {
+                    it.sendStatusMessage(
+                        TextComponentUtils.toTextComponent {
+                            "§7you are mentioned by §l§7${event.player.name.string}§7 player, in the chat."
+                        },
+                        true
+                    )
+                }
+            }
+        }
+
         if (!ChatUtils.isGlobalChat(event)) {
             val players = event.player.serverWorld.getEntitiesWithinAABB(
                 event.player.entity.javaClass, AxisAlignedBB(
