@@ -1,0 +1,8 @@
+{
+  "project_essentials_chat.chat.disabled": "§7Nachricht nicht gesendet, der Chat ist deaktiviert.",
+  "project_essentials_chat.chat.restricted": "§cDu hast §7keine Berechtigung §cden Chat zu benutzen.",
+  "project_essentials_chat.chat.color_restricted": "§cDu hast §7keine Berechtigung §cum Farben zu verwenden.",
+  "project_essentials_chat.chat.blocked_word": "§cNachricht nicht gesendet, sie enthält ein gesperrtes Wort: \"§7%s\".",
+  "project_essentials_chat.chat.blocked_char": "§cNachricht nicht gesendet, sie enthält ein gesperrtes Sambol.",
+  "project_essentials_chat.chat.message_maxlength": "§cNachricht nicht gesendet, sie ist zu lang."
+}
