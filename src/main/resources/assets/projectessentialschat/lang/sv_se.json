@@ -1,0 +1,8 @@
+{
+  "project_essentials_chat.chat.disabled": "§7Meddelandet skickades inte, chatten är inaktiverad.",
+  "project_essentials_chat.chat.restricted": "§cDu §7har inte behörighet §catt använda chatten.",
+  "project_essentials_chat.chat.color_restricted": "§cDu §7har inte behörighet §catt att använda chattens färger.",
+  "project_essentials_chat.chat.blocked_word": "§cMeddelandet skickades inte, ditt meddelande innerhåller otillåtet ord: \"§7%s\".",
+  "project_essentials_chat.chat.blocked_char": "§cMeddelandet skickades inte, ditt meddelande innehåller otillåtet tecken.",
+  "project_essentials_chat.chat.message_maxlength": "§cMeddelandet skickades inte, längden på ditt meddelande är längre än vad som är tillåtet."
+}
