@@ -1,0 +1,8 @@
+{
+  "project_essentials_chat.chat.disabled": "§7Message non envoyé, chat désactivée.",
+  "project_essentials_chat.chat.restricted": "§cVous §7n'êtes pas autorisé §cà utiliser le chat.",
+  "project_essentials_chat.chat.color_restricted": "§cVous §7n'êtes pas autorisé §cà utiliser les couleurs du chat.",
+  "project_essentials_chat.chat.blocked_word": "§cMessage non envoyé, votre message contient des mots bloqués: \"§7%s\".",
+  "project_essentials_chat.chat.blocked_char": "§cMessage non envoyé, votre message contient des symboles bloqués.",
+  "project_essentials_chat.chat.message_maxlength": "§cMessage non envoyé, la taille de votre message dépasse la taille maximale autorisée."
+}

@@ -1,0 +1,8 @@
+{
+  "project_essentials_chat.chat.disabled": "§7Mensagem não enviada, bate-papo desativado.",
+  "project_essentials_chat.chat.restricted": "§cVocê §7não tem permissão §cpara usar o bate-papo.",
+  "project_essentials_chat.chat.color_restricted": "§cVocê §7não tem permissão §cpara usar cores de chat.",
+  "project_essentials_chat.chat.blocked_word": "§cMensagem não enviada, sua mensagem contém palavras bloqueadas: \"§7%s\".",
+  "project_essentials_chat.chat.blocked_char": "§cMensagem não enviada, sua mensagem contém símbolos bloqueados.",
+  "project_essentials_chat.chat.message_maxlength": "§cMensagem não enviada, o tamaho da sua mensagem excede o tamanho máximo permitido."
+}
