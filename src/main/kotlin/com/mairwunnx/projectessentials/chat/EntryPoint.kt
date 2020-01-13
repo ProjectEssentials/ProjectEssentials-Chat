@@ -77,6 +77,24 @@ class EntryPoint : EssBase() {
             return
         }
 
+        if (!hasPermission(event.player, "ess.chat.chatdelay.bypass", 3)) {
+            if (ChatCooldown.getCooldownIsExpired(
+                    event.player.name.string,
+                    ChatModelUtils.chatModel.moderation.messagingCooldown
+                )
+            ) {
+                ChatCooldown.addCooldown(event.player.name.string)
+            } else {
+                sendMsg(
+                    "chat",
+                    event.player.commandSource,
+                    "chat.cooldown_not_expired"
+                )
+                event.isCanceled = true
+                return
+            }
+        }
+
         if (event.message.contains("&")) {
             if (hasPermission(event.player, "ess.chat.color", 2)) {
                 event.component = TextComponentUtils.toTextComponent {
