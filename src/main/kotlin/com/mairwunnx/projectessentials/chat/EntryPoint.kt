@@ -77,21 +77,40 @@ class EntryPoint : EssBase() {
             return
         }
 
-        if (!hasPermission(event.player, "ess.chat.chatdelay.bypass", 3)) {
-            if (ChatCooldown.getCooldownIsExpired(
-                    event.player.name.string,
-                    ChatModelUtils.chatModel.moderation.messagingCooldown
-                )
-            ) {
-                ChatCooldown.addCooldown(event.player.name.string)
-            } else {
-                sendMsg(
-                    "chat",
-                    event.player.commandSource,
-                    "chat.cooldown_not_expired"
-                )
-                event.isCanceled = true
-                return
+        if (ChatModelUtils.chatModel.moderation.messagingCooldownEnabled) {
+            if (!hasPermission(event.player, "ess.chat.chatdelay.bypass", 3)) {
+                if (ChatCooldown.getCooldownIsExpired(
+                        event.player.name.string,
+                        ChatModelUtils.chatModel.moderation.messagingCooldown
+                    )
+                ) {
+                    ChatCooldown.addCooldown(event.player.name.string)
+                } else {
+                    sendMsg(
+                        "chat",
+                        event.player.commandSource,
+                        "chat.cooldown_not_expired"
+                    )
+                    event.isCanceled = true
+                    return
+                }
+            }
+        }
+
+        if (!ChatModelUtils.chatModel.moderation.advertisingAllowed) {
+            if (!hasPermission(event.player, "ess.chat.advertising.bypass", 3)) {
+                if (event.message.matches(
+                        Regex(ChatModelUtils.chatModel.moderation.advertisingRegex)
+                    )
+                ) {
+                    sendMsg(
+                        "chat",
+                        event.player.commandSource,
+                        "chat.advertising_not_allowed"
+                    )
+                    event.isCanceled = true
+                    return
+                }
             }
         }
 
