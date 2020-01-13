@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
 
 [[mods]]
     modId="project_essentials_chat"
-    version="1.14.4-0.1.0.0"
+    version="1.14.4-0.2.0.0"
     displayName="Project Essentials Chat"
     updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.14.4/update.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat"
@@ -19,13 +19,6 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
     modId="project_essentials_core"
     mandatory=true
     versionRange="[1,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.projectessentialschat]]
-    modId="project_essentials_permissions"
-    mandatory=true
-    versionRange="[0,)"
     ordering="NONE"
     side="BOTH"
 
