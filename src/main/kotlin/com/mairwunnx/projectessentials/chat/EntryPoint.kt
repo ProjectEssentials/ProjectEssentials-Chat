@@ -211,14 +211,16 @@ class EntryPoint : EssBase() {
                 if ("@all" in mentions) {
                     if (hasPermission(event.player, "ess.chat.mention.all", 2)) {
                         event.player.server.playerList.players.forEach {
-                            it.sendStatusMessage(
-                                TextComponentUtils.toTextComponent {
-                                    mentionSettings.mentionMessage.replace(
-                                        "%player",
-                                        event.player.name.string
-                                    ).replace("&", "§")
-                                }, true
-                            )
+                            if (it.name.string != event.player.name.string) {
+                                it.sendStatusMessage(
+                                    TextComponentUtils.toTextComponent {
+                                        mentionSettings.mentionMessage.replace(
+                                            "%player",
+                                            event.player.name.string
+                                        ).replace("&", "§")
+                                    }, true
+                                )
+                            }
                         }
                         return
                     } else {
