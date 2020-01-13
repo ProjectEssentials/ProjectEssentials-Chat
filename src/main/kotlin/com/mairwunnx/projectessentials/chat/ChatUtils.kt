@@ -1,17 +1,17 @@
 package com.mairwunnx.projectessentials.chat
 
-import com.mairwunnx.projectessentials.chat.models.ChatModelBase
+import com.mairwunnx.projectessentials.chat.EntryPoint.Companion.hasPermission
+import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentialscore.extensions.empty
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
-import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import net.minecraft.util.Tuple
 import net.minecraftforge.event.ServerChatEvent
 
 object ChatUtils {
     fun processBlockedWords(event: ServerChatEvent): Tuple<Boolean, String> {
-        val blockedWords = ChatModelBase.chatModel.moderation.blockedWords
-        val blockedWordsMask = ChatModelBase.chatModel.moderation.blockedWordsMask
-        val modifyBlockedWords = ChatModelBase.chatModel.moderation.modifyBlockedWords
+        val blockedWords = ChatModelUtils.chatModel.moderation.blockedWords
+        val blockedWordsMask = ChatModelUtils.chatModel.moderation.blockedWordsMask
+        val modifyBlockedWords = ChatModelUtils.chatModel.moderation.modifyBlockedWords
 
         var fixedMessage = event.message
 
@@ -20,8 +20,8 @@ object ChatUtils {
                 fixedMessage.toLowerCase().matches(Regex(it, RegexOption.IGNORE_CASE)) ||
                 fixedMessage.toLowerCase().contains(it, true)
             ) {
-                if (PermissionsAPI.hasPermission(
-                        event.username, "ess.chat.blockedwords.bypass"
+                if (hasPermission(
+                        event.player, "ess.chat.blockedwords.bypass", 3
                     )
                 ) return Tuple(true, fixedMessage)
 
@@ -47,12 +47,12 @@ object ChatUtils {
     }
 
     fun processBlockedChars(event: ServerChatEvent): Boolean {
-        if (PermissionsAPI.hasPermission(
-                event.username, "ess.chat.blockedchars.bypass"
+        if (hasPermission(
+                event.player, "ess.chat.blockedchars.bypass", 3
             )
         ) return true
 
-        val blockedChars = ChatModelBase.chatModel.moderation.blockedChars
+        val blockedChars = ChatModelUtils.chatModel.moderation.blockedChars
         blockedChars.forEach {
             if (event.message.contains(it)) {
                 sendMsg(
@@ -67,12 +67,12 @@ object ChatUtils {
     }
 
     fun processMessageLength(event: ServerChatEvent): Boolean {
-        if (PermissionsAPI.hasPermission(
-                event.username, "ess.chat.messagelength.bypass"
+        if (hasPermission(
+                event.player, "ess.chat.messagelength.bypass", 4
             )
         ) return true
 
-        val maxLength = ChatModelBase.chatModel.moderation.maxMessageLength
+        val maxLength = ChatModelUtils.chatModel.moderation.maxMessageLength
         if (event.message.length > maxLength) {
             sendMsg(
                 "chat", event.player.commandSource, "chat.message_maxlength"
@@ -84,13 +84,13 @@ object ChatUtils {
 
     fun isGlobalChat(event: ServerChatEvent): Boolean = event.message.startsWith('!')
 
-    private fun isCommonChat(): Boolean = !ChatModelBase.chatModel.messaging.enableRangedChat
+    fun isCommonChat(): Boolean = !ChatModelUtils.chatModel.messaging.enableRangedChat
 
     fun getMessagePattern(event: ServerChatEvent): String {
         return when {
-            !ChatModelBase.chatModel.messaging.enableRangedChat -> ChatModelBase.chatModel.messaging.messageCommonPattern
-            isGlobalChat(event) -> ChatModelBase.chatModel.messaging.messageGlobalPattern
-            else -> ChatModelBase.chatModel.messaging.messageLocalPattern
+            !ChatModelUtils.chatModel.messaging.enableRangedChat -> ChatModelUtils.chatModel.messaging.messageCommonPattern
+            isGlobalChat(event) -> ChatModelUtils.chatModel.messaging.messageGlobalPattern
+            else -> ChatModelUtils.chatModel.messaging.messageLocalPattern
         }
     }
 
@@ -99,19 +99,19 @@ object ChatUtils {
         when {
             isCommonChat() -> {
                 val targetVariable = messageRegex.find(
-                    ChatModelBase.chatModel.messaging.messageCommonPattern
+                    ChatModelUtils.chatModel.messaging.messageCommonPattern
                 )
                 return getMessageVariable(targetVariable!!, "§f")
             }
             else -> return if (isGlobalChat(event)) {
                 val targetVariable = messageRegex.find(
-                    ChatModelBase.chatModel.messaging.messageGlobalPattern
+                    ChatModelUtils.chatModel.messaging.messageGlobalPattern
                 )
 
                 getMessageVariable(targetVariable!!, "§f")
             } else {
                 val targetVariable = messageRegex.find(
-                    ChatModelBase.chatModel.messaging.messageLocalPattern
+                    ChatModelUtils.chatModel.messaging.messageLocalPattern
                 )
                 getMessageVariable(targetVariable!!, "§7§o")
             }

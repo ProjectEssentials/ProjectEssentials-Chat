@@ -31,9 +31,6 @@ data class ChatModel(
     data class Mentions(
         var mentionsEnabled: Boolean = true,
         var mentionInActionBar: Boolean = true,
-        /**
-         * todo: move to language resources.
-         */
         var mentionMessage: String = "&7you are mentioned by &l&7%player&7 player, in the chat.",
         var mentionAtFormat: String = "&c",
         var mentionNameFormat: String = "&b"

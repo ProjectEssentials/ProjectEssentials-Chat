@@ -1,9 +1,11 @@
 package com.mairwunnx.projectessentials.chat
 
-import com.mairwunnx.projectessentials.chat.models.ChatModelBase
+import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentialscore.EssBase
+import com.mairwunnx.projectessentialscore.extensions.empty
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.TextComponentUtils
 import net.minecraft.util.text.event.ClickEvent
@@ -26,36 +28,57 @@ class EntryPoint : EssBase() {
         validateForgeVersion()
         logger.debug("Register event bus for $modName mod ...")
         MinecraftForge.EVENT_BUS.register(this)
-        ChatModelBase.loadData()
+        loadAdditionalModules()
+        ChatModelUtils.loadData()
+    }
+
+    private fun loadAdditionalModules() {
+        try {
+            Class.forName(
+                "com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI"
+            )
+            permissionsInstalled = true
+            logger.info("Permissions module found!")
+        } catch (_: ClassNotFoundException) {
+            // ignored
+        }
     }
 
     companion object {
         lateinit var modInstance: EntryPoint
+        var permissionsInstalled: Boolean = false
+
+        fun hasPermission(player: ServerPlayerEntity, node: String, opLevel: Int = 0): Boolean =
+            if (permissionsInstalled) {
+                PermissionsAPI.hasPermission(player.name.string, node)
+            } else {
+                player.server.opPermissionLevel >= opLevel
+            }
     }
 
     @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
         logger.info("Shutting down $modName mod ...")
-        ChatModelBase.saveData()
+        ChatModelUtils.saveData()
     }
 
     @SubscribeEvent
     fun onChatMessage(event: ServerChatEvent) {
-        if (!ChatModelBase.chatModel.messaging.chatEnabled) {
+        if (!ChatModelUtils.chatModel.messaging.chatEnabled) {
             sendMsg("chat", event.player.commandSource, "chat.disabled")
             event.isCanceled = true
             return
         }
 
-        if (!PermissionsAPI.hasPermission(event.username, "ess.chat")) {
+        if (!hasPermission(event.player, "ess.chat")) {
             sendMsg("chat", event.player.commandSource, "chat.restricted")
             event.isCanceled = true
             return
         }
 
         if (event.message.contains("&")) {
-            if (PermissionsAPI.hasPermission(event.username, "ess.chat.color")) {
+            if (hasPermission(event.player, "ess.chat.color", 2)) {
                 event.component = TextComponentUtils.toTextComponent {
                     event.message.replace("&", "§")
                 }
@@ -91,12 +114,22 @@ class EntryPoint : EssBase() {
                 "%player", event.username
             )
         }.style.setClickEvent(
-            ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "!@${event.username} ")
+            if (ChatUtils.isCommonChat()) {
+                ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "@${event.username} ")
+            } else {
+                ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "!@${event.username} ")
+            }
         )
+
+        val group =
+            when {
+                permissionsInstalled -> PermissionsAPI.getUserGroup(event.username).name
+                else -> String.empty
+            }
 
         event.component = TextComponentUtils.toTextComponent {
             ChatUtils.getMessagePattern(event).replace(
-                "%group", PermissionsAPI.getUserGroup(event.username).name
+                "%group", group
             ).replace(
                 "%player", event.username
             ).replace(
@@ -111,11 +144,18 @@ class EntryPoint : EssBase() {
             )
         }.setStyle(nicknameComponent)
 
-        val mentionSettings = ChatModelBase.chatModel.mentions
+        val mentionSettings = ChatModelUtils.chatModel.mentions
         val mentions = mutableListOf<String>()
         if (mentionSettings.mentionsEnabled) {
             Regex("@\\S[a-zA-Z0-9]*").findAll(event.component.formattedText).forEach {
-                mentions.add(it.value)
+                if (it.value != "@e" &&
+                    it.value != "@a" &&
+                    it.value != "@p" &&
+                    it.value != "@r" &&
+                    it.value != "@s"
+                ) {
+                    mentions.add(it.value)
+                }
             }
         }
         val anFormat = mentionSettings.mentionAtFormat.replace("&", "§")
@@ -149,12 +189,12 @@ class EntryPoint : EssBase() {
         if (!ChatUtils.isGlobalChat(event)) {
             val players = event.player.serverWorld.getEntitiesWithinAABB(
                 event.player.entity.javaClass, AxisAlignedBB(
-                    event.player.posX - ChatModelBase.chatModel.messaging.localChatRange / 2,
-                    event.player.posY - ChatModelBase.chatModel.messaging.localChatRange / 2,
-                    event.player.posZ - ChatModelBase.chatModel.messaging.localChatRange / 2,
-                    event.player.posX + ChatModelBase.chatModel.messaging.localChatRange / 2,
-                    event.player.posY + ChatModelBase.chatModel.messaging.localChatRange / 2,
-                    event.player.posZ + ChatModelBase.chatModel.messaging.localChatRange / 2
+                    event.player.posX - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                    event.player.posY - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                    event.player.posZ - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                    event.player.posX + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                    event.player.posY + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                    event.player.posZ + ChatModelUtils.chatModel.messaging.localChatRange / 2
                 )
             )
             players.forEach {

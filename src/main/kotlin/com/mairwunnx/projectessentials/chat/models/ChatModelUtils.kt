@@ -8,18 +8,15 @@ import org.apache.logging.log4j.LogManager
 import java.io.File
 
 @UseExperimental(UnstableDefault::class)
-object ChatModelBase {
+object ChatModelUtils {
     private val warpsConfig = MOD_CONFIG_FOLDER + File.separator + "chat.json"
     private val logger = LogManager.getLogger()
     var chatModel = ChatModel()
     private val json = Json(
         JsonConfiguration(
-            encodeDefaults = true,
-            strictMode = true,
-            unquoted = false,
+            strictMode = false,
             allowStructuredMapKeys = true,
-            prettyPrint = true,
-            useArrayPolymorphism = false
+            prettyPrint = true
         )
     )
 
@@ -35,7 +32,7 @@ object ChatModelBase {
             File(warpsConfig).writeText(defaultConfig)
         }
         val warpsConfigRaw = File(warpsConfig).readText()
-        chatModel = Json.parse(ChatModel.serializer(), warpsConfigRaw)
+        chatModel = json.parse(ChatModel.serializer(), warpsConfigRaw)
         logger.info("Chat configuration loading done")
     }
 
