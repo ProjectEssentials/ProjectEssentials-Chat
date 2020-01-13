@@ -4,5 +4,6 @@
   "project_essentials_chat.chat.color_restricted": "§cУ вас §7нет прав §cна использование цветов в чате.",
   "project_essentials_chat.chat.blocked_word": "§cСообщение не отправлено, ваше сообщение содержит заблокированное слово: \"§7%s\".",
   "project_essentials_chat.chat.blocked_char": "§cСообщение не отправлено, ваше сообщение содержит заблокированный символ.",
-  "project_essentials_chat.chat.message_maxlength": "§cСообщение не отправлено, ваше сообщение превышает максимально допустимую длину."
+  "project_essentials_chat.chat.message_maxlength": "§cСообщение не отправлено, ваше сообщение превышает максимально допустимую длину.",
+  "project_essentials_chat.chat.mention_all_aborted": "§cОповещение не было отправлено всем игрокам, у вас §7нет прав§c на оповещение всех игроков."
 }

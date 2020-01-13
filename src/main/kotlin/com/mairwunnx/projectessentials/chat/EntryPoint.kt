@@ -172,17 +172,25 @@ class EntryPoint : EssBase() {
         if (mentions.isNotEmpty()) {
             if (mentionSettings.mentionsEnabled && mentionSettings.mentionInActionBar) {
                 if ("@all" in mentions) {
-                    event.player.server.playerList.players.forEach {
-                        it.sendStatusMessage(
-                            TextComponentUtils.toTextComponent {
-                                mentionSettings.mentionMessage.replace(
-                                    "%player",
-                                    event.player.name.string
-                                ).replace("&", "§")
-                            }, true
+                    if (hasPermission(event.player, "ess.chat.mention.all", 2)) {
+                        event.player.server.playerList.players.forEach {
+                            it.sendStatusMessage(
+                                TextComponentUtils.toTextComponent {
+                                    mentionSettings.mentionMessage.replace(
+                                        "%player",
+                                        event.player.name.string
+                                    ).replace("&", "§")
+                                }, true
+                            )
+                        }
+                        return
+                    } else {
+                        sendMsg(
+                            "chat",
+                            event.player.commandSource,
+                            "chat.mention_all_aborted"
                         )
                     }
-                    return
                 }
                 event.player.server.playerList.players.forEach {
                     if ("@${it.name.string}" in mentions) {
