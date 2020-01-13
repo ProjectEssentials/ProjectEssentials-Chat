@@ -15,7 +15,6 @@ object ChatCooldown {
     }
 
     fun removeCooldown(nickname: String) {
-        if (cooldownMap[nickname] == null) return
         cooldownMap.remove(nickname)
     }
 
