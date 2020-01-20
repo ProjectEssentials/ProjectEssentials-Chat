@@ -1,10 +1,10 @@
 package com.mairwunnx.projectessentials.chat
 
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
-import com.mairwunnx.projectessentialscore.EssBase
-import com.mairwunnx.projectessentialscore.extensions.empty
-import com.mairwunnx.projectessentialscore.extensions.sendMsg
-import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
+import com.mairwunnx.projectessentials.core.EssBase
+import com.mairwunnx.projectessentials.core.extensions.empty
+import com.mairwunnx.projectessentials.core.extensions.sendMsg
+import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.TextComponentUtils
@@ -23,10 +23,9 @@ class EntryPoint : EssBase() {
 
     init {
         modInstance = this
-        modVersion = "1.14.4-0.2.0.0"
+        modVersion = "1.14.4-0.2.0"
         logBaseInfo()
         validateForgeVersion()
-        logger.debug("Register event bus for $modName mod ...")
         MinecraftForge.EVENT_BUS.register(this)
         loadAdditionalModules()
         ChatModelUtils.loadData()
@@ -59,7 +58,6 @@ class EntryPoint : EssBase() {
     @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
-        logger.info("Shutting down $modName mod ...")
         ChatModelUtils.saveData()
     }
 
@@ -100,7 +98,10 @@ class EntryPoint : EssBase() {
         if (!ChatModelUtils.chatModel.moderation.advertisingAllowed) {
             if (!hasPermission(event.player, "ess.chat.advertising.bypass", 3)) {
                 if (event.message.matches(
-                        Regex(ChatModelUtils.chatModel.moderation.advertisingRegex)
+                        Regex(
+                            ChatModelUtils.chatModel.moderation.advertisingRegex,
+                            RegexOption.IGNORE_CASE
+                        )
                     )
                 ) {
                     sendMsg(
@@ -184,7 +185,9 @@ class EntryPoint : EssBase() {
         val mentionSettings = ChatModelUtils.chatModel.mentions
         val mentions = mutableListOf<String>()
         if (mentionSettings.mentionsEnabled) {
-            Regex("@\\S[a-zA-Z0-9]*").findAll(event.component.formattedText).forEach {
+            Regex(
+                "@\\S[a-zA-Z0-9]*", RegexOption.IGNORE_CASE
+            ).findAll(event.component.formattedText).forEach {
                 if (it.value != "@e" &&
                     it.value != "@a" &&
                     it.value != "@p" &&

@@ -2,8 +2,8 @@ package com.mairwunnx.projectessentials.chat
 
 import com.mairwunnx.projectessentials.chat.EntryPoint.Companion.hasPermission
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
-import com.mairwunnx.projectessentialscore.extensions.empty
-import com.mairwunnx.projectessentialscore.extensions.sendMsg
+import com.mairwunnx.projectessentials.core.extensions.empty
+import com.mairwunnx.projectessentials.core.extensions.sendMsg
 import net.minecraft.util.Tuple
 import net.minecraftforge.event.ServerChatEvent
 
