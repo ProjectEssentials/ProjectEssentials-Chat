@@ -31,8 +31,6 @@ object ChatCooldown {
             val duration = Duration.between(commandExecutionTime, dateTimeNow)
             return duration.toKotlinDuration().inSeconds
         }
-        throw KotlinNullPointerException(
-            "An error occurred while getting chat cooldown date time by nickname ($nickname)"
-        )
+        return Double.MAX_VALUE
     }
 }

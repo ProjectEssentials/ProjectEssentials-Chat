@@ -97,7 +97,7 @@ class EntryPoint : EssBase() {
 
         if (!ChatModelUtils.chatModel.moderation.advertisingAllowed) {
             if (!hasPermission(event.player, "ess.chat.advertising.bypass", 3)) {
-                if (event.message.matches(
+                if (event.message.contains(
                         Regex(
                             ChatModelUtils.chatModel.moderation.advertisingRegex,
                             RegexOption.IGNORE_CASE
