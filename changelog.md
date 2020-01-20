@@ -10,12 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Pull request template file created by [@ita07](https://github.com/ita07).
-- German translation added by [@1LiterZinalco](https://github.com/1LiterZinalco).
+- German translation by [@1LiterZinalco](https://github.com/1LiterZinalco).
 - Swedish translation by [@robbinworks](https://github.com/robbinworks).
 - Pt translation fixed and add french translation by [@dudangel](https://github.com/dudangel).
 - Spanish translation by [@drcabral](https://github.com/drcabral)
-- Resolved #2. (mention all players with `@all` in message added.)
-- Permission `ess.chat.mention.all` for mention all players added.
+- Resolved #2. (mention all players with `@all` in message.)
+- Permission `ess.chat.mention.all` for mention all players.
 - Chat messaging delay implemented.
 - Simple Anti-advertising implemented.
 
@@ -35,8 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Incorrect version, not matches semver regex.
 
 ### Removed
-- Resolved #1. Redundant checking on null removed.
-- Ability to self mention, when mentioned all players by you removed.
+- Resolved #1. Redundant checking on null.
+- Ability to self mention, when mentioned all players by you.
 
 ## [1.14.4-0.1.0 ~~.0~~] - 2019-10-18
 

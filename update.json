@@ -1,10 +1,11 @@
 {
-  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Warps/releases/tag/v1.14.4-0.1.0.0",
+  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Warps/releases/tag/v1.14.4-0.2.0",
   "1.14.4": {
+    "1.14.4-0.2.0": " - German translation added by @1LiterZinalco.\n - Swedish translation added by @robbinworks\n - Pt translation fixed and add french translation by @dudangel\n - Spanish translation by @drcabral\n - Resolved #2. (mention all players with `@all` in message added.)\n - Permission `ess.chat.mention.all` for mention all players added.\n - Chat messaging delay implemented.\n - Simple Anti-advertising implemented.\n - Essentials dependencies updated, build.gradle cleanup.\n - `kolinx-serialization` and kotlin runtime updated.\n - Forge version updated to `28.1.114`.\n - Version in mods.toml updated.\n - Permissions is not mandatory dependency.\n - `isCommonChat` function now is public.\n - `JsonConfiguration` simplified in `ChatModelUtils.kt`.\n - `ChatModelBase` renamed to `ChatModelUtils.kt`.\n - Using command block parameters as mention fixed (`@e` etc).\n - Quick reply on message when common chat enabled fixed.\n - Incorrect version, not matches semver regex fixed.\n - Resolved #1. Redundant checking on null removed.\n - Ability to self mention, when mentioned all players by you removed.",
     "1.14.4-0.1.0.0": " - Initial release of Project Essentials Chat as Project Essentials part."
   },
   "promos": {
-    "1.14.4-latest": "1.14.4-0.1.0.0",
-    "1.14.4-recommended": "1.14.4-0.1.0.0"
+    "1.14.4-latest": "1.14.4-0.2.0",
+    "1.14.4-recommended": "1.14.4-0.2.0"
   }
 }
