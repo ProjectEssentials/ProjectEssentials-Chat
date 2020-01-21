@@ -1,38 +1,17 @@
-## 💌 Project Essentials: Chat
+<img align="center" src="assets/chat_social.png"/>
 
-> ## Forge modification for controlling chat actions on server and client.
+<h4 align="center"><a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/releases/download/v1.14.4-0.2.0/Project.Essentials.Chat-1.14.4-0.2.0.jar">Download mod</a> · <a href="documentation/for-players.md">How to install</a> · <a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/issues/new/choose">Troubleshooting</a> · <a href="https://t.me/minecraftforge">News & updates</a> · <a href="changelog.md">Change log</a></h4>
 
-#### ❗ Compatibility with forge `28.0.X` version.
+        $ lightweight chat manager for forge, with simple anti-spam and anti-advertising and anti-swearing protection, also with configuration.
 
-## 🎮 Installation instruction:
-> ##### Just move Project Essentials Chat-1.14.4-0.X.X.X.jar to mods directory:
+![](assets/chat_demo.gif)
 
-> ##### Important note: don't forget install mod dependencies!
+#### Compatibility
 
-- core: <https://github.com/ProjectEssentials/ProjectEssentials-Core/releases>
-- permissions: <https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases>
+Currently mod branch supported forge version `28.0.X` and `28.1.X` (Minecraft `1.14.4`).
 
-```
-.
-├── assets
-├── config
-├── libraries
-├── mods (that's how it should be)
-│   ├── Project Essentials Chat-1.14.4-0.X.X.X.jar
-│   ├── Project Essentials Core-MOD-1.14.4-1.X.X.X.jar.
-│   └── Project Essentials Permissions-1.14.4-1.X.X.X.jar.
-└── ...
-```
+#### Credits
 
-```
-Information for developers:
-    - kotlin-std lib version: 1.3.50
-    - kotlinx serialization version: 0.12.0
-    - target jvm version: 1.8
-```
-
-### After you got the mod and dependencies and the library itself:
-
-# [getting started with read the commands documentation](./documentation/in-using.md)
-
-> ## Made with 💕 by [MairwunNx](https://mairwunnx.github.io/)
+- Author: Pavel Erokhin [@mairwunnx](https://github.com/mairwunnx)
+- [JetBrains](https://www.jetbrains.com/) for Licenses
+- And you for contributing or using it.
