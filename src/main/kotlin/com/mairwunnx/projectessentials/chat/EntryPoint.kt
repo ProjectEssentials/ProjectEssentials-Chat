@@ -274,22 +274,24 @@ class EntryPoint : EssBase() {
             }
         }
 
-        if (!ChatUtils.isGlobalChat(event)) {
-            val players = event.player.serverWorld.getEntitiesWithinAABB(
-                event.player.entity.javaClass, AxisAlignedBB(
-                    event.player.posX - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                    event.player.posY - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                    event.player.posZ - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                    event.player.posX + ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                    event.player.posY + ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                    event.player.posZ + ChatModelUtils.chatModel.messaging.localChatRange / 2
+        if (ChatModelUtils.chatModel.messaging.enableRangedChat) {
+            if (!ChatUtils.isGlobalChat(event)) {
+                val players = event.player.serverWorld.getEntitiesWithinAABB(
+                    event.player.entity.javaClass, AxisAlignedBB(
+                        event.player.posX - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.posY - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.posZ - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.posX + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.posY + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.posZ + ChatModelUtils.chatModel.messaging.localChatRange / 2
+                    )
                 )
-            )
-            players.forEach {
-                it.sendMessage(event.component)
+                players.forEach {
+                    it.sendMessage(event.component)
+                }
+                event.isCanceled = true
+                return
             }
-            event.isCanceled = true
-            return
         }
     }
 }
