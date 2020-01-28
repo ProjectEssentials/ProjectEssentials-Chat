@@ -61,6 +61,11 @@ You can get default configuration by removing file in path `.minecraft/config/Pr
         "mentionMessage": "&7you are mentioned by &l&7%player&7 player, in the chat.",
         "mentionAtFormat": "&c",
         "mentionNameFormat": "&b"
+    },
+    "events": {
+        "joinMessageEnabled": true,
+        "leftMessageEnabled": true,
+        "advancementsEnabled": true
     }
 }
 ```
@@ -225,6 +230,30 @@ You can get default configuration by removing file in path `.minecraft/config/Pr
     Accepts data type: String
 
     Description: Pattern message for after `@` symbol in message. (sorry for really bad english)
+```
+
+```
+    Property name: events.joinMessageEnabled
+
+    Accepts data type: Boolean
+
+    Description: Supress `player join` messages on server if value false.
+```
+
+```
+    Property name: events.leftMessageEnabled
+
+    Accepts data type: Boolean
+
+    Description: Supress `player left` messages on server if value false.
+```
+
+```
+    Property name: events.advancementsEnabled
+
+    Accepts data type: Boolean
+
+    Description: Supress `advancement get` messages on server if value false.
 ```
 
 ### If you have any questions or encounter a problem, be sure to open an [issue](https://github.com/ProjectEssentials/ProjectEssentials-Chat/issues/new/choose)!
