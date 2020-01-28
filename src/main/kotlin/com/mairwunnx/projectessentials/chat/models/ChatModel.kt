@@ -18,7 +18,7 @@ data class ChatModel(
         var messagingCooldownEnabled: Boolean = true,
         var messagingCooldown: Int = 5,
         var advertisingAllowed: Boolean = false,
-        var advertisingRegex: String = "(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?"
+        var advertisingRegex: String = "((?:[a-z0-9]{2,}:\\/\\/)?(?:(?:[0-9]{1,3}\\.){3}[0-9]{1,3}|(?:[-\\w_]{1,}\\.[a-z]{2,}?))(?::[0-9]{1,5})?.*?(?=[!\"\u00A7 \n]|$))"
     )
 
     @Serializable
