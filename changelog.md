@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.14.4-0.3.0] - 2020-01-28
 
+### Added
+- Events configuration.
+- Ability to disable join, left and advancement messages.
+
+### Changed
+- Advertising regex improved.
+
+### Fixed
+- Local chat incorrect behavior when ranged chat disabled. 
+
 ## [1.14.4-0.2.0] - 2020-01-20
 
 ### Added
