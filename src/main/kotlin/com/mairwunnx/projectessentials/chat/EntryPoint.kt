@@ -9,6 +9,7 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.TextComponentUtils
 import net.minecraft.util.text.event.ClickEvent
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -59,6 +60,30 @@ class EntryPoint : EssBase() {
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
         ChatModelUtils.saveData()
+    }
+
+    @SubscribeEvent
+    fun onReceivedMessage(event: ClientChatReceivedEvent) {
+        if (!ChatModelUtils.chatModel.events.joinMessageEnabled) {
+            if ("key='multiplayer.player.joined'" in event.message.toString()) {
+                event.isCanceled = true
+                return
+            }
+        }
+
+        if (!ChatModelUtils.chatModel.events.leftMessageEnabled) {
+            if ("key='multiplayer.player.left'" in event.message.toString()) {
+                event.isCanceled = true
+                return
+            }
+        }
+
+        if (!ChatModelUtils.chatModel.events.advancementsEnabled) {
+            if ("key='chat.type.advancement'" in event.message.toString()) {
+                event.isCanceled = true
+                return
+            }
+        }
     }
 
     @SubscribeEvent
