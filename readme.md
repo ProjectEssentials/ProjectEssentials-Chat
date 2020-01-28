@@ -1,6 +1,6 @@
 <img align="center" src="assets/chat_social.png"/>
 
-<h4 align="center"><a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/releases/download/v1.14.4-0.2.0/Project.Essentials.Chat-1.14.4-0.2.0.jar">Download mod</a> · <a href="documentation/for-players.md">How to install</a> · <a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/issues/new/choose">Troubleshooting</a> · <a href="https://t.me/minecraftforge">News & updates</a> · <a href="changelog.md">Change log</a></h4>
+<h4 align="center"><a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/releases/download/v1.14.4-0.3.0/Project.Essentials.Chat-1.14.4-0.3.0.jar">Download mod</a> · <a href="documentation/for-players.md">How to install</a> · <a href="https://github.com/ProjectEssentials/ProjectEssentials-Chat/issues/new/choose">Troubleshooting</a> · <a href="https://t.me/minecraftforge">News & updates</a> · <a href="changelog.md">Change log</a></h4>
 
 <h4 align="center">lightweight chat manager for forge, with simple anti-spam and anti-advertising and anti-swearing protection, also with configuration.</h4>
 
