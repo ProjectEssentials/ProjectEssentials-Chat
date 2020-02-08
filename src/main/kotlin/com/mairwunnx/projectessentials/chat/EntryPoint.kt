@@ -34,9 +34,7 @@ class EntryPoint : EssBase() {
 
     private fun loadAdditionalModules() {
         try {
-            Class.forName(
-                "com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI"
-            )
+            Class.forName(permissionAPIClassPath)
             permissionsInstalled = true
             logger.info("Permissions module found!")
         } catch (_: ClassNotFoundException) {
