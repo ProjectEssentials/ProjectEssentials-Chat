@@ -1,12 +1,12 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[31,)"
 issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/issues"
 
 [[mods]]
     modId="project_essentials_chat"
-    version="1.14.4-0.3.0"
+    version="1.15.2-1.0.0"
     displayName="Project Essentials Chat"
-    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.14.4/update.json"
+    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.15.2/update.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat"
     credits="Thanks JetBrains for Intellij IDEA license!"
     authors="MairwunNx (Pavel Erokhin)"
@@ -25,13 +25,13 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
 [[dependencies.projectessentialschat]]
     modId="forge"
     mandatory=true
-    versionRange="[28,)"
+    versionRange="[31,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.projectessentialschat]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"
