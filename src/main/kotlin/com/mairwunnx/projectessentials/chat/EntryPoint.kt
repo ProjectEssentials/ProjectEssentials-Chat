@@ -52,7 +52,7 @@ class EntryPoint : EssBase() {
             if (permissionsInstalled) {
                 PermissionsAPI.hasPermission(player.name.string, node)
             } else {
-                player.server.opPermissionLevel >= opLevel
+                player.hasPermissionLevel(opLevel)
             }
     }
 
