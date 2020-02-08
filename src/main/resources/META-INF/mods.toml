@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
 
 [[mods]]
     modId="project_essentials_chat"
-    version="1.14.4-0.3.0"
+    version="1.14.4-1.0.0"
     displayName="Project Essentials Chat"
     updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.14.4/update.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat"
