@@ -44,7 +44,7 @@ class EntryPoint : EssBase() {
 
     companion object {
         lateinit var modInstance: EntryPoint
-        var permissionsInstalled: Boolean = false
+        private var permissionsInstalled: Boolean = false
 
         fun hasPermission(player: ServerPlayerEntity, node: String, opLevel: Int = 0): Boolean =
             if (permissionsInstalled) {
