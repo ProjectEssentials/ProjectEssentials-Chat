@@ -276,12 +276,12 @@ class EntryPoint : EssBase() {
             if (!ChatUtils.isGlobalChat(event)) {
                 val players = event.player.serverWorld.getEntitiesWithinAABB(
                     event.player.entity.javaClass, AxisAlignedBB(
-                        event.player.posX - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                        event.player.posY - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                        event.player.posZ - ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                        event.player.posX + ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                        event.player.posY + ChatModelUtils.chatModel.messaging.localChatRange / 2,
-                        event.player.posZ + ChatModelUtils.chatModel.messaging.localChatRange / 2
+                        event.player.positionVec.x - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.positionVec.y - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.positionVec.z - ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.positionVec.x + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.positionVec.y + ChatModelUtils.chatModel.messaging.localChatRange / 2,
+                        event.player.positionVec.z + ChatModelUtils.chatModel.messaging.localChatRange / 2
                     )
                 )
                 players.forEach {
