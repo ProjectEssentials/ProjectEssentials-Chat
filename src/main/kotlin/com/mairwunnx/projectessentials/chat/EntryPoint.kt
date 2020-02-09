@@ -1,5 +1,6 @@
 package com.mairwunnx.projectessentials.chat
 
+import com.mairwunnx.projectessentials.chat.commands.ClearChatCommand
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
 import com.mairwunnx.projectessentials.core.extensions.empty
@@ -14,6 +15,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import org.apache.logging.log4j.LogManager
 
@@ -52,6 +54,11 @@ class EntryPoint : EssBase() {
             } else {
                 player.hasPermissionLevel(opLevel)
             }
+    }
+
+    @SubscribeEvent
+    fun onServerStarting(it: FMLServerStartingEvent) {
+        ClearChatCommand.register(it.commandDispatcher)
     }
 
     @Suppress("UNUSED_PARAMETER")
