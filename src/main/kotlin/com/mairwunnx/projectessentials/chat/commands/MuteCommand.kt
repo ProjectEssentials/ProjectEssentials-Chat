@@ -65,7 +65,8 @@ object MuteCommand {
     ): Int {
         if (context.isPlayerSender() && !EntryPoint.hasPermission(
                 context.source.asPlayer(),
-                "ess.chat.mute"
+                "ess.chat.mute",
+                3
             )
         ) {
             sendMsg("chat", context.source, "chat.mute_restricted")
