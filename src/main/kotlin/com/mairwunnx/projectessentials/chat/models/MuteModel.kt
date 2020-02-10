@@ -9,8 +9,8 @@ data class MuteModel(
 ) {
     @Serializable
     data class Player(
-        var mutedBy: String = String.empty,
         var name: String = String.empty,
+        var mutedBy: String = String.empty,
         var reason: String = String.empty
     )
 }
