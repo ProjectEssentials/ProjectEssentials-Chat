@@ -47,15 +47,11 @@ object MuteCommand {
                         "player", EntityArgument.player()
                     ).then(argument).executes {
                         return@executes execute(it)
-                    }.executes {
-                        return@executes execute(it)
                     }
                 ).then(
                     Commands.argument(
                         "player name", StringArgumentType.string()
                     ).then(argument).executes {
-                        return@executes execute(it)
-                    }.executes {
                         return@executes execute(it)
                     }
                 )
