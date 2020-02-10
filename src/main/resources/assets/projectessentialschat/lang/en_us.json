@@ -10,7 +10,7 @@
   "project_essentials_chat.chat.advertising_not_allowed": "§cMessage not sent, maybe it contains a link or advertisement.",
   "project_essentials_chat.chat.clear_restricted": "§cYou §7don't have permission §cto clear your chat.",
   "project_essentials_chat.chat.clear_other_restricted": "§cYou §7don't have permission §cto clear chat.",
-  "project_essentials_chat.chat.muted": "§cYou muted in chat by §7%s §cwith reason §7%s§c.",
+  "project_essentials_chat.chat.muted": "§cYou muted in chat by §7%s §cwith reason §7%s",
   "project_essentials_chat.chat.mute_restricted": "§cYou §7don't have permission §cto mute chat to anyone player.",
   "project_essentials_chat.chat.mute_failed_player_ignored": "§cPlayer to whom you tried to mute chat is in the ignore-list, which protects it from chat muting.",
   "project_essentials_chat.notify_muted": "§7§oPlayer §c%s §7§ohave been muted in chat by §c%s§7§o, with reason §c%s§7§o",

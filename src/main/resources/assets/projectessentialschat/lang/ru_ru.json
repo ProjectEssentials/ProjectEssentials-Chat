@@ -10,7 +10,7 @@
   "project_essentials_chat.chat.advertising_not_allowed": "§cСообщение не отправлено, возможно оно содержит ссылку или рекламу.",
   "project_essentials_chat.chat.clear_restricted": "§cУ вас §7нет прав §cна очистку вашего чата.",
   "project_essentials_chat.chat.clear_other_restricted": "§cУ вас §7нет прав §cна очистку всего чата.",
-  "project_essentials_chat.chat.muted": "§cВаш чат отключен от §7%s §cпо причине §7%s§c.",
+  "project_essentials_chat.chat.muted": "§cВаш чат отключен от §7%s §cпо причине §7%s",
   "project_essentials_chat.chat.mute_restricted": "§cУ вас §7нет прав §cна отключение чата кому-либо.",
   "project_essentials_chat.chat.mute_failed_player_ignored": "§cИгрок которому вы попытались отключить чат находится в ignore-list, что защищает его от отключения чата.",
   "project_essentials_chat.notify_muted": "§7§oИгроку §c%s §7§oотключен чат от §c%s§7§o, по причине §c%s§7§o",

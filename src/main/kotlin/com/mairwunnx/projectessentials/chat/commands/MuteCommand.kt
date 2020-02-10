@@ -101,7 +101,7 @@ object MuteCommand {
                             "project_essentials_chat.notify_muted",
                             player.name.string,
                             context.playerName(),
-                            reason
+                            reason.replace(" ", " §c")
                         )
                     )
                 }
@@ -111,7 +111,7 @@ object MuteCommand {
                     player.commandSource,
                     "chat.lol_youre_muted",
                     context.playerName(),
-                    reason
+                    reason.replace(" ", " §7")
                 )
                 sendMsg(
                     "chat",
@@ -151,7 +151,7 @@ object MuteCommand {
                             "project_essentials_chat.notify_muted",
                             playerName,
                             context.playerName(),
-                            reason
+                            reason.replace(" ", " §c")
                         )
                     )
                 }

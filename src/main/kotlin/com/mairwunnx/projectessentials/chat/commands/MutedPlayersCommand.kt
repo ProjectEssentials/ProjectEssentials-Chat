@@ -54,7 +54,7 @@ object MutedPlayersCommand {
             if (mutedPlayers.isNotEmpty()) {
                 mutedPlayers.forEach {
                     val mutedBy = MuteAPI.getMuteInitiator(it)!!
-                    val reason = MuteAPI.getMuteReason(it)!!
+                    val reason = MuteAPI.getMuteReason(it)!!.replace(" ", " §c")
 
                     this.append(
                         "§7  - §c$it§7, $locMessageMutedBy §c$mutedBy§7, $locMessageReason: §c$reason"

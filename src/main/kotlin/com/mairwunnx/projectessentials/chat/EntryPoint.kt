@@ -119,7 +119,7 @@ class EntryPoint : EssBase() {
                 event.player.commandSource,
                 "chat.muted",
                 mutedBy,
-                reason
+                reason.replace(" ", " §7")
             )
             event.isCanceled = true
             return
