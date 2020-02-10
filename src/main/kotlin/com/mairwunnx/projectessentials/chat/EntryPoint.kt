@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.commands.ClearChatCommand
 import com.mairwunnx.projectessentials.chat.commands.MuteCommand
+import com.mairwunnx.projectessentials.chat.commands.UnmuteCommand
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
 import com.mairwunnx.projectessentials.core.extensions.empty
@@ -71,6 +72,7 @@ class EntryPoint : EssBase() {
     fun onServerStarting(it: FMLServerStartingEvent) {
         ClearChatCommand.register(it.commandDispatcher)
         MuteCommand.register(it.commandDispatcher)
+        UnmuteCommand.register(it.commandDispatcher)
     }
 
     @Suppress("UNUSED_PARAMETER")

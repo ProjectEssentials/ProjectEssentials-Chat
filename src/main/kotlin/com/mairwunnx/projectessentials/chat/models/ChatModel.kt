@@ -53,6 +53,7 @@ data class ChatModel(
     data class Mute(
         var defaultReason: String = "Reason was not provided.",
         var ignoredPlayers: List<String> = listOf(),
-        var notifyAllAboutMute: Boolean = true
+        var notifyAllAboutMute: Boolean = true,
+        var notifyAllAboutUnmute: Boolean = true
     )
 }
