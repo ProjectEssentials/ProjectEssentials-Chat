@@ -1,5 +1,6 @@
 package com.mairwunnx.projectessentials.chat
 
+import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.commands.ClearChatCommand
 import com.mairwunnx.projectessentials.chat.commands.MuteCommand
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
@@ -104,6 +105,21 @@ class EntryPoint : EssBase() {
 
     @SubscribeEvent
     fun onChatMessage(event: ServerChatEvent) {
+        if (MuteAPI.isInMute(event.username)) {
+            val mutedBy = MuteAPI.getMuteInitiator(event.username)!!
+            val reason = MuteAPI.getMuteReason(event.username)!!
+
+            sendMsg(
+                "chat",
+                event.player.commandSource,
+                "chat.muted",
+                mutedBy,
+                reason
+            )
+            event.isCanceled = true
+            return
+        }
+
         if (!ChatModelUtils.chatModel.messaging.chatEnabled) {
             sendMsg("chat", event.player.commandSource, "chat.disabled")
             event.isCanceled = true
