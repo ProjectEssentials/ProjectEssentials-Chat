@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.commands.ClearChatCommand
 import com.mairwunnx.projectessentials.chat.commands.MuteCommand
+import com.mairwunnx.projectessentials.chat.commands.UnmuteAllCommand
 import com.mairwunnx.projectessentials.chat.commands.UnmuteCommand
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
@@ -73,6 +74,7 @@ class EntryPoint : EssBase() {
         ClearChatCommand.register(it.commandDispatcher)
         MuteCommand.register(it.commandDispatcher)
         UnmuteCommand.register(it.commandDispatcher)
+        UnmuteAllCommand.register(it.commandDispatcher)
     }
 
     @Suppress("UNUSED_PARAMETER")

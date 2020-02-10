@@ -54,6 +54,7 @@ data class ChatModel(
         var defaultReason: String = "Reason was not provided.",
         var ignoredPlayers: List<String> = listOf(),
         var notifyAllAboutMute: Boolean = true,
-        var notifyAllAboutUnmute: Boolean = true
+        var notifyAllAboutUnmute: Boolean = true,
+        var notifyAllAboutUnmuteAll: Boolean = true
     )
 }
