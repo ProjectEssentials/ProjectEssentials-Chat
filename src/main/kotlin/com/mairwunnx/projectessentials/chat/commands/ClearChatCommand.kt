@@ -58,7 +58,7 @@ object ClearChatCommand {
     ): Int {
         if (clearOnlyForSender) {
             if (context.isPlayerSender()) {
-                if (EntryPoint.hasPermission(context.source.asPlayer(), "chat.clear", 2)) {
+                if (EntryPoint.hasPermission(context.source.asPlayer(), "ess.chat.clear", 2)) {
                     DistExecutor.runWhenOn(Dist.CLIENT) {
                         Runnable {
                             Minecraft.getInstance().ingameGUI.chatGUI.clearChatMessages(true)
@@ -78,7 +78,7 @@ object ClearChatCommand {
         } else {
             if (!context.isPlayerSender() || EntryPoint.hasPermission(
                     context.source.asPlayer(),
-                    "chat.clear.other",
+                    "ess.chat.clear.other",
                     3
                 )
             ) {
