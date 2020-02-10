@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.commands.*
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
+import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
 import com.mairwunnx.projectessentials.core.extensions.empty
 import com.mairwunnx.projectessentials.core.extensions.sendMsg
@@ -33,6 +34,7 @@ class EntryPoint : EssBase() {
         MinecraftForge.EVENT_BUS.register(this)
         loadAdditionalModules()
         ChatModelUtils.loadData()
+        MuteModelUtils.loadData()
     }
 
     private fun loadAdditionalModules() {
@@ -79,6 +81,7 @@ class EntryPoint : EssBase() {
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
         ChatModelUtils.saveData()
+        MuteModelUtils.saveData()
     }
 
     @SubscribeEvent

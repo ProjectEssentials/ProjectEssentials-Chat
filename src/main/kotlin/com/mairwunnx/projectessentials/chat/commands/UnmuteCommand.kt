@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentials.chat.commands
 import com.mairwunnx.projectessentials.chat.EntryPoint
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
+import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
 import com.mairwunnx.projectessentials.core.extensions.isPlayerSender
 import com.mairwunnx.projectessentials.core.extensions.playerName
 import com.mairwunnx.projectessentials.core.extensions.sendMsg
@@ -59,6 +60,8 @@ object UnmuteCommand {
 
         if (player != null) {
             if (MuteAPI.unmutePlayer(player.name.string)) {
+                MuteModelUtils.removePlayer(player.name.string)
+
                 if (ChatModelUtils.chatModel.mute.notifyAllAboutUnmute) {
                     context.source.server.playerList.sendMessage(
                         TranslationTextComponent(
@@ -91,6 +94,8 @@ object UnmuteCommand {
             }
         } else if (playerName != null) {
             if (MuteAPI.unmutePlayer(playerName)) {
+                MuteModelUtils.removePlayer(playerName)
+
                 if (ChatModelUtils.chatModel.mute.notifyAllAboutUnmute) {
                     context.source.server.playerList.sendMessage(
                         TranslationTextComponent(

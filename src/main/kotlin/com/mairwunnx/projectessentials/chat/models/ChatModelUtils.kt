@@ -20,15 +20,15 @@ object ChatModelUtils {
             )
             File(chatConfig).writeText(defaultConfig)
         }
-        val warpsConfigRaw = File(chatConfig).readText()
-        chatModel = jsonInstance.parse(ChatModel.serializer(), warpsConfigRaw)
+        val chatConfigRaw = File(chatConfig).readText()
+        chatModel = jsonInstance.parse(ChatModel.serializer(), chatConfigRaw)
     }
 
     fun saveData() {
         File(MOD_CONFIG_FOLDER).mkdirs()
-        val spawnConfig = jsonInstance.stringify(
+        val chatConfig = jsonInstance.stringify(
             ChatModel.serializer(), chatModel
         )
-        File(chatConfig).writeText(spawnConfig)
+        File(chatConfig).writeText(chatConfig)
     }
 }
