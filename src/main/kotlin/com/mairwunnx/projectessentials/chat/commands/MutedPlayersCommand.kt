@@ -23,6 +23,9 @@ object MutedPlayersCommand {
     private val locMessageReason = TranslationTextComponent(
         "project_essentials_chat.chat.out_reason"
     ).formattedText
+    private val locMessageNone = TranslationTextComponent(
+        "project_essentials_chat.chat.out_muted_players_none"
+    ).formattedText
 
     fun register(dispatcher: CommandDispatcher<CommandSource>) {
         logger.info("Register \"/muted-players\" command")
@@ -48,13 +51,17 @@ object MutedPlayersCommand {
         val mutedPlayers = MuteAPI.getMutedPlayers()
         val message = buildString {
             this.append("§7$locMessageMutedPlayer:\n")
-            mutedPlayers.forEach {
-                val mutedBy = MuteAPI.getMuteInitiator(it)!!
-                val reason = MuteAPI.getMuteReason(it)!!
+            if (mutedPlayers.isNotEmpty()) {
+                mutedPlayers.forEach {
+                    val mutedBy = MuteAPI.getMuteInitiator(it)!!
+                    val reason = MuteAPI.getMuteReason(it)!!
 
-                this.append(
-                    "§7- §c$it§7, $locMessageMutedBy §c$mutedBy§7, $locMessageReason: §c$reason"
-                )
+                    this.append(
+                        "§7  - §c$it§7, $locMessageMutedBy §c$mutedBy§7, $locMessageReason: §c$reason"
+                    )
+                }
+            } else {
+                this.append("§c$locMessageNone")
             }
         }
 
