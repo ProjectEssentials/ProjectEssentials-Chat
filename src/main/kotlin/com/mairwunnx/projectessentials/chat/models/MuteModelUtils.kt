@@ -37,7 +37,7 @@ object MuteModelUtils {
         val mutedConfig = jsonInstance.stringify(
             MuteModel.serializer(), muteModel
         )
-        File(mutedConfig).writeText(mutedConfig)
+        File(mutedPlayersConfig).writeText(mutedConfig)
     }
 
     fun addPlayer(name: String, mutedBy: String, reason: String) {
