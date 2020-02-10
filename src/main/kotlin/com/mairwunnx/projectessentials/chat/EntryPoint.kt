@@ -42,11 +42,20 @@ class EntryPoint : EssBase() {
         } catch (_: ClassNotFoundException) {
             // ignored
         }
+
+        try {
+            Class.forName(cooldownAPIClassPath)
+            cooldownInstalled = true
+            logger.info("Cooldown module found!")
+        } catch (_: ClassNotFoundException) {
+            // ignored
+        }
     }
 
     companion object {
         lateinit var modInstance: EntryPoint
         var permissionsInstalled: Boolean = false
+        var cooldownInstalled: Boolean = false
 
         fun hasPermission(player: ServerPlayerEntity, node: String, opLevel: Int = 0): Boolean =
             if (permissionsInstalled) {
