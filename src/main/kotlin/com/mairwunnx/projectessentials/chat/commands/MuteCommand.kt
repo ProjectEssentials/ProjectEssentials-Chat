@@ -78,6 +78,16 @@ object MuteCommand {
         val playerName = getPlayerName(context)
 
         if (player != null) {
+            if (player.name.string in ChatModelUtils.chatModel.mute.ignoredPlayers) {
+                sendMsg(
+                    "chat",
+                    context.source,
+                    "chat.mute_failed_player_ignored",
+                    player.name.string
+                )
+                return 0
+            }
+
             val result = MuteAPI.mutePlayer(
                 player.name.string, context.playerName(), reason, override
             )
@@ -116,6 +126,16 @@ object MuteCommand {
                 )
             }
         } else if (playerName != null) {
+            if (playerName in ChatModelUtils.chatModel.mute.ignoredPlayers) {
+                sendMsg(
+                    "chat",
+                    context.source,
+                    "chat.mute_failed_player_ignored",
+                    playerName
+                )
+                return 0
+            }
+
             val result = MuteAPI.mutePlayer(
                 playerName, context.playerName(), reason, override
             )
