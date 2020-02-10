@@ -98,6 +98,9 @@ object ClearChatCommand {
                         }
                     }
                 }
+            } else {
+                sendMsg("chat", context.source, "chat.clear_restricted")
+                return 0
             }
         }
         return 0
