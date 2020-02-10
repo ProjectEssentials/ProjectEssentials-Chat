@@ -60,15 +60,13 @@ object UnmuteCommand {
         if (player != null) {
             if (MuteAPI.unmutePlayer(player.name.string)) {
                 if (ChatModelUtils.chatModel.mute.notifyAllAboutUnmute) {
-                    if (ChatModelUtils.chatModel.mute.notifyAllAboutMute) {
-                        context.source.server.playerList.sendMessage(
-                            TranslationTextComponent(
-                                "project_essentials_chat.notify_unmuted",
-                                player.name.string,
-                                context.playerName()
-                            )
+                    context.source.server.playerList.sendMessage(
+                        TranslationTextComponent(
+                            "project_essentials_chat.notify_unmuted",
+                            player.name.string,
+                            context.playerName()
                         )
-                    }
+                    )
                 }
 
                 sendMsg(
@@ -93,7 +91,7 @@ object UnmuteCommand {
             }
         } else if (playerName != null) {
             if (MuteAPI.unmutePlayer(playerName)) {
-                if (ChatModelUtils.chatModel.mute.notifyAllAboutMute) {
+                if (ChatModelUtils.chatModel.mute.notifyAllAboutUnmute) {
                     context.source.server.playerList.sendMessage(
                         TranslationTextComponent(
                             "project_essentials_chat.notify_unmuted",
