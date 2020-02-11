@@ -1,6 +1,9 @@
 package com.mairwunnx.projectessentials.chat
 
+import com.mairwunnx.projectessentials.chat.api.MuteAPI
+import com.mairwunnx.projectessentials.chat.commands.*
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
+import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
 import com.mairwunnx.projectessentials.core.extensions.empty
 import com.mairwunnx.projectessentials.core.extensions.sendMsg
@@ -14,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import org.apache.logging.log4j.LogManager
 
@@ -30,6 +34,7 @@ class EntryPoint : EssBase() {
         MinecraftForge.EVENT_BUS.register(this)
         loadAdditionalModules()
         ChatModelUtils.loadData()
+        MuteModelUtils.loadData()
     }
 
     private fun loadAdditionalModules() {
@@ -40,11 +45,20 @@ class EntryPoint : EssBase() {
         } catch (_: ClassNotFoundException) {
             // ignored
         }
+
+        try {
+            Class.forName(cooldownAPIClassPath)
+            cooldownInstalled = true
+            logger.info("Cooldown module found!")
+        } catch (_: ClassNotFoundException) {
+            // ignored
+        }
     }
 
     companion object {
         lateinit var modInstance: EntryPoint
-        private var permissionsInstalled: Boolean = false
+        var permissionsInstalled: Boolean = false
+        var cooldownInstalled: Boolean = false
 
         fun hasPermission(player: ServerPlayerEntity, node: String, opLevel: Int = 0): Boolean =
             if (permissionsInstalled) {
@@ -54,10 +68,20 @@ class EntryPoint : EssBase() {
             }
     }
 
+    @SubscribeEvent
+    fun onServerStarting(it: FMLServerStartingEvent) {
+        ClearChatCommand.register(it.commandDispatcher)
+        MuteCommand.register(it.commandDispatcher)
+        UnmuteCommand.register(it.commandDispatcher)
+        UnmuteAllCommand.register(it.commandDispatcher)
+        MutedPlayersCommand.register(it.commandDispatcher)
+    }
+
     @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
         ChatModelUtils.saveData()
+        MuteModelUtils.saveData()
     }
 
     @SubscribeEvent
@@ -86,6 +110,21 @@ class EntryPoint : EssBase() {
 
     @SubscribeEvent
     fun onChatMessage(event: ServerChatEvent) {
+        if (MuteAPI.isInMute(event.username)) {
+            val mutedBy = MuteAPI.getMuteInitiator(event.username)!!
+            val reason = MuteAPI.getMuteReason(event.username)!!
+
+            sendMsg(
+                "chat",
+                event.player.commandSource,
+                "chat.muted",
+                mutedBy,
+                reason.replace(" ", " §7")
+            )
+            event.isCanceled = true
+            return
+        }
+
         if (!ChatModelUtils.chatModel.messaging.chatEnabled) {
             sendMsg("chat", event.player.commandSource, "chat.disabled")
             event.isCanceled = true

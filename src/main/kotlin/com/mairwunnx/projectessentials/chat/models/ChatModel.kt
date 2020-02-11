@@ -7,7 +7,8 @@ data class ChatModel(
     var moderation: Moderation = Moderation(),
     var messaging: Messaging = Messaging(),
     var mentions: Mentions = Mentions(),
-    var events: Events = Events()
+    var events: Events = Events(),
+    var mute: Mute = Mute()
 ) {
     @Serializable
     data class Moderation(
@@ -46,5 +47,14 @@ data class ChatModel(
         var joinMessageEnabled: Boolean = true,
         var leftMessageEnabled: Boolean = true,
         var advancementsEnabled: Boolean = true
+    )
+
+    @Serializable
+    data class Mute(
+        var defaultReason: String = "Reason was not provided.",
+        var ignoredPlayers: List<String> = listOf(),
+        var notifyAllAboutMute: Boolean = true,
+        var notifyAllAboutUnmute: Boolean = true,
+        var notifyAllAboutUnmuteAll: Boolean = true
     )
 }
