@@ -19,8 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.gitignore` unignored `libs` directory.
 - `@UseExperimental` annotation replaced with `@OptIn` in `ChatCooldown.kt`.
 
-### Fixed
-
 ### Removed
 - Essentials modules removed from `gradle.properties`.
 - Essentials modules removed from dependencies in `build.gradle`.
