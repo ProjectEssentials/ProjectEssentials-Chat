@@ -5,8 +5,9 @@ import com.mairwunnx.projectessentials.chat.commands.*
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
 import com.mairwunnx.projectessentials.core.EssBase
+import com.mairwunnx.projectessentials.core.configuration.localization.LocalizationConfigurationUtils
 import com.mairwunnx.projectessentials.core.extensions.empty
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
+import com.mairwunnx.projectessentials.core.localization.processLocalizations
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.math.AxisAlignedBB
@@ -131,8 +132,7 @@ class EntryPoint : EssBase() {
             val mutedBy = MuteAPI.getMuteInitiator(event.username)!!
             val reason = MuteAPI.getMuteReason(event.username)!!
 
-            sendMsg(
-                "chat",
+            sendMessage(
                 event.player.commandSource,
                 "chat.muted",
                 mutedBy,
@@ -143,13 +143,13 @@ class EntryPoint : EssBase() {
         }
 
         if (!ChatModelUtils.chatModel.messaging.chatEnabled) {
-            sendMsg("chat", event.player.commandSource, "chat.disabled")
+            sendMessage(event.player.commandSource, "chat.disabled")
             event.isCanceled = true
             return
         }
 
         if (!hasPermission(event.player, "ess.chat")) {
-            sendMsg("chat", event.player.commandSource, "chat.restricted")
+            sendMessage(event.player.commandSource, "chat.restricted")
             event.isCanceled = true
             return
         }
@@ -163,8 +163,7 @@ class EntryPoint : EssBase() {
                 ) {
                     ChatCooldown.addCooldown(event.player.name.string)
                 } else {
-                    sendMsg(
-                        "chat",
+                    sendMessage(
                         event.player.commandSource,
                         "chat.cooldown_not_expired"
                     )
@@ -183,8 +182,7 @@ class EntryPoint : EssBase() {
                         )
                     )
                 ) {
-                    sendMsg(
-                        "chat",
+                    sendMessage(
                         event.player.commandSource,
                         "chat.advertising_not_allowed"
                     )
@@ -200,7 +198,7 @@ class EntryPoint : EssBase() {
                     event.message.replace("&", "§")
                 }
             } else {
-                sendMsg("chat", event.player.commandSource, "chat.color_restricted")
+                sendMessage(event.player.commandSource, "chat.color_restricted")
                 event.isCanceled = true
                 return
             }
@@ -306,8 +304,7 @@ class EntryPoint : EssBase() {
                         }
                         return
                     } else {
-                        sendMsg(
-                            "chat",
+                        sendMessage(
                             event.player.commandSource,
                             "chat.mention_all_aborted"
                         )

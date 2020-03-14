@@ -4,14 +4,13 @@ import com.mairwunnx.projectessentials.chat.EntryPoint
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
+import com.mairwunnx.projectessentials.chat.sendMessage
 import com.mairwunnx.projectessentials.core.extensions.isPlayerSender
 import com.mairwunnx.projectessentials.core.extensions.playerName
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
 import com.mojang.brigadier.context.CommandContext
 import net.minecraft.command.CommandSource
-import net.minecraft.util.text.TranslationTextComponent
 import org.apache.logging.log4j.LogManager
 
 object UnmuteAllCommand {
@@ -34,7 +33,7 @@ object UnmuteAllCommand {
                 3
             )
         ) {
-            sendMsg("chat", context.source, "chat.unmute_all_restricted")
+            sendMessage(context.source, "chat.unmute_all_restricted")
             return 0
         }
 
@@ -42,19 +41,15 @@ object UnmuteAllCommand {
         MuteModelUtils.removeAll()
 
         if (ChatModelUtils.chatModel.mute.notifyAllAboutUnmuteAll) {
-            context.source.server.playerList.sendMessage(
-                TranslationTextComponent(
-                    "project_essentials_chat.notify_unmuted_all",
+            context.source.server.playerList.players.forEach {
+                sendMessage(
+                    it.commandSource, "notify_unmuted_all",
                     context.playerName()
                 )
-            )
+            }
         }
 
-        sendMsg(
-            "chat",
-            context.source,
-            "chat.unmute_all_success"
-        )
+        sendMessage(context.source, "chat.unmute_all_success")
         return 0
     }
 }

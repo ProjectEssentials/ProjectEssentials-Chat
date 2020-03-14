@@ -2,30 +2,47 @@ package com.mairwunnx.projectessentials.chat.commands
 
 import com.mairwunnx.projectessentials.chat.EntryPoint
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
+import com.mairwunnx.projectessentials.chat.sendMessage
 import com.mairwunnx.projectessentials.core.extensions.isPlayerSender
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
+import com.mairwunnx.projectessentials.core.localization.getLocalizedString
+import com.mojang.authlib.GameProfile
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
 import com.mojang.brigadier.context.CommandContext
 import net.minecraft.command.CommandSource
+import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.server.MinecraftServer
 import net.minecraft.util.text.TextComponentUtils
-import net.minecraft.util.text.TranslationTextComponent
+import net.minecraft.world.dimension.DimensionType
+import net.minecraftforge.common.util.FakePlayer
 import org.apache.logging.log4j.LogManager
+import java.util.*
 
 object MutedPlayersCommand {
     private val logger = LogManager.getLogger()
-    private val locMessageMutedPlayer = TranslationTextComponent(
-        "project_essentials_chat.chat.out_muted_players"
-    ).formattedText
-    private val locMessageMutedBy = TranslationTextComponent(
-        "project_essentials_chat.chat.out_muted_by"
-    ).formattedText
-    private val locMessageReason = TranslationTextComponent(
-        "project_essentials_chat.chat.out_reason"
-    ).formattedText
-    private val locMessageNone = TranslationTextComponent(
-        "project_essentials_chat.chat.out_muted_players_none"
-    ).formattedText
+    private const val domain = "project_essentials_chat.chat"
+    private var player: ServerPlayerEntity? = null
+    private var server: MinecraftServer? = null
+
+    private val fakePlayer by lazy {
+        FakePlayer(
+            server?.getWorld(DimensionType.OVERWORLD),
+            GameProfile(UUID.randomUUID(), "#thisIsBug")
+        )
+    }
+
+    private val locMessageMutedPlayer = getLocalizedString(
+        player ?: fakePlayer, "$domain.out_muted_players"
+    )
+    private val locMessageMutedBy = getLocalizedString(
+        player ?: fakePlayer, "$domain.out_muted_by"
+    )
+    private val locMessageReason = getLocalizedString(
+        player ?: fakePlayer, "$domain.out_reason"
+    )
+    private val locMessageNone = getLocalizedString(
+        player ?: fakePlayer, "$domain.out_muted_players_none"
+    )
 
     fun register(dispatcher: CommandDispatcher<CommandSource>) {
         logger.info("Register \"/muted-players\" command")
@@ -38,15 +55,19 @@ object MutedPlayersCommand {
     private fun execute(
         context: CommandContext<CommandSource>
     ): Int {
+        server = context.source.server
+
         if (context.isPlayerSender() && !EntryPoint.hasPermission(
                 context.source.asPlayer(),
                 "ess.chat.muted",
                 3
             )
         ) {
-            sendMsg("chat", context.source, "chat.muted_restricted")
+            sendMessage(context.source, "chat.muted_restricted")
             return 0
         }
+
+        if (context.isPlayerSender()) player = context.source.asPlayer()
 
         val mutedPlayers = MuteAPI.getMutedPlayers()
         val message = buildString {

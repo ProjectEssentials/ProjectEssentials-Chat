@@ -3,7 +3,6 @@ package com.mairwunnx.projectessentials.chat
 import com.mairwunnx.projectessentials.chat.EntryPoint.Companion.hasPermission
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.core.extensions.empty
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
 import net.minecraft.util.Tuple
 import net.minecraftforge.event.ServerChatEvent
 
@@ -33,8 +32,7 @@ object ChatUtils {
                         fixedMessage = newMessage
                     }
                 } else {
-                    sendMsg(
-                        "chat",
+                    sendMessage(
                         event.player.commandSource,
                         "chat.blocked_word",
                         it
@@ -55,8 +53,7 @@ object ChatUtils {
         val blockedChars = ChatModelUtils.chatModel.moderation.blockedChars
         blockedChars.forEach {
             if (event.message.contains(it)) {
-                sendMsg(
-                    "chat",
+                sendMessage(
                     event.player.commandSource,
                     "chat.blocked_char"
                 )
@@ -74,8 +71,8 @@ object ChatUtils {
 
         val maxLength = ChatModelUtils.chatModel.moderation.maxMessageLength
         if (event.message.length > maxLength) {
-            sendMsg(
-                "chat", event.player.commandSource, "chat.message_maxlength"
+            sendMessage(
+                event.player.commandSource, "chat.message_maxlength"
             )
             return false
         }

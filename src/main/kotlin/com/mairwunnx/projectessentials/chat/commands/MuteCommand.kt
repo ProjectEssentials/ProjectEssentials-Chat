@@ -4,9 +4,9 @@ import com.mairwunnx.projectessentials.chat.EntryPoint
 import com.mairwunnx.projectessentials.chat.api.MuteAPI
 import com.mairwunnx.projectessentials.chat.models.ChatModelUtils
 import com.mairwunnx.projectessentials.chat.models.MuteModelUtils
+import com.mairwunnx.projectessentials.chat.sendMessage
 import com.mairwunnx.projectessentials.core.extensions.isPlayerSender
 import com.mairwunnx.projectessentials.core.extensions.playerName
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
@@ -16,7 +16,6 @@ import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import net.minecraft.command.arguments.EntityArgument
 import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.util.text.TranslationTextComponent
 import org.apache.logging.log4j.LogManager
 
 object MuteCommand {
@@ -70,7 +69,7 @@ object MuteCommand {
                 3
             )
         ) {
-            sendMsg("chat", context.source, "chat.mute_restricted")
+            sendMessage(context.source, "chat.mute_restricted")
             return 0
         }
 
@@ -79,8 +78,7 @@ object MuteCommand {
 
         if (player != null) {
             if (player.name.string in ChatModelUtils.chatModel.mute.ignoredPlayers) {
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_failed_player_ignored",
                     player.name.string
@@ -96,32 +94,29 @@ object MuteCommand {
                 MuteModelUtils.addPlayer(player.name.string, context.playerName(), reason)
 
                 if (ChatModelUtils.chatModel.mute.notifyAllAboutMute) {
-                    context.source.server.playerList.sendMessage(
-                        TranslationTextComponent(
-                            "project_essentials_chat.notify_muted",
+                    context.source.server.playerList.players.forEach {
+                        sendMessage(
+                            it.commandSource, "notify_muted",
                             player.name.string,
                             context.playerName(),
                             reason.replace(" ", " §c")
                         )
-                    )
+                    }
                 }
 
-                sendMsg(
-                    "chat",
+                sendMessage(
                     player.commandSource,
                     "chat.lol_youre_muted",
                     context.playerName(),
                     reason.replace(" ", " §7")
                 )
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_success",
                     player.name.string
                 )
             } else {
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_failed",
                     player.name.string
@@ -129,8 +124,7 @@ object MuteCommand {
             }
         } else if (playerName != null) {
             if (playerName in ChatModelUtils.chatModel.mute.ignoredPlayers) {
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_failed_player_ignored",
                     playerName
@@ -146,25 +140,23 @@ object MuteCommand {
                 MuteModelUtils.addPlayer(playerName, context.playerName(), reason)
 
                 if (ChatModelUtils.chatModel.mute.notifyAllAboutMute) {
-                    context.source.server.playerList.sendMessage(
-                        TranslationTextComponent(
-                            "project_essentials_chat.notify_muted",
+                    context.source.server.playerList.players.forEach {
+                        sendMessage(
+                            it.commandSource, "notify_muted",
                             playerName,
                             context.playerName(),
                             reason.replace(" ", " §c")
                         )
-                    )
+                    }
                 }
 
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_success",
                     playerName
                 )
             } else {
-                sendMsg(
-                    "chat",
+                sendMessage(
                     context.source,
                     "chat.mute_failed",
                     playerName

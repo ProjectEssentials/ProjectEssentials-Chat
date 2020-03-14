@@ -1,11 +1,11 @@
 package com.mairwunnx.projectessentials.chat.commands
 
 import com.mairwunnx.projectessentials.chat.EntryPoint
+import com.mairwunnx.projectessentials.chat.sendMessage
 import com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases
 import com.mairwunnx.projectessentials.core.extensions.isPlayerSender
 import com.mairwunnx.projectessentials.core.extensions.playerName
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
-import com.mairwunnx.projectessentials.core.helpers.PERMISSION_LEVEL
+import com.mairwunnx.projectessentials.core.helpers.throwPermissionLevel
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
@@ -65,12 +65,8 @@ object ClearChatCommand {
                         }
                     }
                 } else {
-                    logger.warn(
-                        PERMISSION_LEVEL
-                            .replace("%0", context.playerName())
-                            .replace("%1", "clear-chat")
-                    )
-                    sendMsg("chat", context.source, "chat.clear_restricted")
+                    throwPermissionLevel(context.playerName(), "clear-chat")
+                    sendMessage(context.source, "chat.clear_restricted")
                 }
             } else {
                 logger.info("Command with parameter `clearOnlyForSender` can't be executed from server. Type `cls` if you use windows or `/clear` if you use mac os or linux.")
@@ -99,7 +95,7 @@ object ClearChatCommand {
                     }
                 }
             } else {
-                sendMsg("chat", context.source, "chat.clear_other_restricted")
+                sendMessage(context.source, "chat.clear_other_restricted")
                 return 0
             }
         }
