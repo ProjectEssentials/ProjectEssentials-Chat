@@ -6,6 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.2-1.1.1] - 2020-03-14
+
+### Added
+- Libraries as dependencies added.
+- Compatibility with safe-localization messages added.
+
+### Changed
+- Kotlin dependency updated to `1.3.70`.
+- KotlinX Serialization version updated to `0.20.0`.
+- Forge API version updated to `28.2.0`.
+- `.gitignore` unignored `libs` directory.
+- `@UseExperimental` annotation replaced with `@OptIn` in `ChatCooldown.kt`.
+
+### Removed
+- Essentials modules removed from `gradle.properties`.
+- Essentials modules removed from dependencies in `build.gradle`.
+- `jitpack.io` maven repository removed from repositories in `build.gradle`.
+- `curseforge` maven repository removed from repositories in `build.gradle`.
+
 ## [1.15.2-1.1.0] - 2020-02-11
 
 ### Added
