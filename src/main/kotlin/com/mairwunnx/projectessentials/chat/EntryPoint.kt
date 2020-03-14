@@ -35,6 +35,23 @@ class EntryPoint : EssBase() {
         loadAdditionalModules()
         ChatModelUtils.loadData()
         MuteModelUtils.loadData()
+        loadLocalization()
+    }
+
+    private fun loadLocalization() {
+        if (LocalizationConfigurationUtils.getConfig().enabled) {
+            processLocalizations(
+                EntryPoint::class.java, listOf(
+                    "/assets/projectessentialschat/lang/ru_ru.json",
+                    "/assets/projectessentialschat/lang/en_us.json",
+                    "/assets/projectessentialschat/lang/de_de.json",
+                    "/assets/projectessentialschat/lang/es_cl.json",
+                    "/assets/projectessentialschat/lang/fr_fr.json",
+                    "/assets/projectessentialschat/lang/pt_br.json",
+                    "/assets/projectessentialschat/lang/sv_se.json"
+                )
+            )
+        }
     }
 
     private fun loadAdditionalModules() {
