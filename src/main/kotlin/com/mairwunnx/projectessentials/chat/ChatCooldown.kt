@@ -23,7 +23,7 @@ object ChatCooldown {
         minSecondsDuration: Int = DEFAULT_COOLDOWN
     ): Boolean = getCooldownTimeLeft(nickname) >= minSecondsDuration
 
-    @UseExperimental(ExperimentalTime::class)
+    @OptIn(ExperimentalTime::class)
     fun getCooldownTimeLeft(nickname: String): Double {
         if (cooldownMap[nickname] != null) {
             val commandExecutionTime = cooldownMap[nickname]
