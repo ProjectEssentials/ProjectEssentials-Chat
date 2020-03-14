@@ -31,18 +31,26 @@ object MutedPlayersCommand {
         )
     }
 
-    private val locMessageMutedPlayer = getLocalizedString(
-        player ?: fakePlayer, "$domain.out_muted_players"
-    )
-    private val locMessageMutedBy = getLocalizedString(
-        player ?: fakePlayer, "$domain.out_muted_by"
-    )
-    private val locMessageReason = getLocalizedString(
-        player ?: fakePlayer, "$domain.out_reason"
-    )
-    private val locMessageNone = getLocalizedString(
-        player ?: fakePlayer, "$domain.out_muted_players_none"
-    )
+    private val locMessageMutedPlayer by lazy {
+        getLocalizedString(
+            player ?: fakePlayer, "$domain.out_muted_players"
+        )
+    }
+    private val locMessageMutedBy by lazy {
+        getLocalizedString(
+            player ?: fakePlayer, "$domain.out_muted_by"
+        )
+    }
+    private val locMessageReason by lazy {
+        getLocalizedString(
+            player ?: fakePlayer, "$domain.out_reason"
+        )
+    }
+    private val locMessageNone by lazy {
+        getLocalizedString(
+            player ?: fakePlayer, "$domain.out_muted_players_none"
+        )
+    }
 
     fun register(dispatcher: CommandDispatcher<CommandSource>) {
         logger.info("Register \"/muted-players\" command")
