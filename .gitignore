@@ -150,6 +150,3 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 !/gradle/wrapper/gradle-wrapper.jar
-gradle/wrapper/gradle-wrapper.jar
-
-!/libs/*
