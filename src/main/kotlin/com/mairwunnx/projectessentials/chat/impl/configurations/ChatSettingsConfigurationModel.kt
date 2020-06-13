@@ -15,6 +15,7 @@ data class ChatSettingsConfigurationModel(
     data class Filters(
         var filterWords: Boolean = false,
         var filterChars: Boolean = false,
+        var filterExceeds: Boolean = false,
         var filterAdvertising: Boolean = false
     )
 
