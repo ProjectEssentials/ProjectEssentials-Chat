@@ -69,8 +69,3 @@ sourceCompatibility = targetCompatibility =
 compileKotlin.kotlinOptions.jvmTarget =
         compileTestKotlin.kotlinOptions.jvmTarget = project_jvm_version_target
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
-    }
-}
