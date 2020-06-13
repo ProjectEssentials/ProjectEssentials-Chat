@@ -46,7 +46,6 @@ object ChatMuteAPI {
         }
     } ?: false
 
-
     /**
      * @param name player name to check.
      * @param uuid player uuid to check.
@@ -63,6 +62,12 @@ object ChatMuteAPI {
      */
     fun unmute(name: String, uuid: String) =
         getMutePlayers().toMutableList().removeIf { it.name == name || it.uuid == uuid }
+
+    /**
+     * Just unmutes all muted players.
+     * @since 2.0.0.
+     */
+    fun unmuteAll() = getMutePlayers().toMutableList().clear()
 
     /**
      * @param name player name to mute.
