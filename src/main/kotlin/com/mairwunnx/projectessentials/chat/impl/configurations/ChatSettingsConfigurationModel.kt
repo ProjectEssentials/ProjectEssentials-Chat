@@ -64,6 +64,7 @@ data class ChatSettingsConfigurationModel(
         var ignoredPlayers: List<String> = listOf(),
         var notifyAllAboutMute: Boolean = true,
         var notifyAllAboutUnmute: Boolean = true,
-        var notifyAllAboutUnmuteAll: Boolean = true
+        var notifyAllAboutUnmuteAll: Boolean = true,
+        var replaceNativeMeCommand: Boolean = false
     )
 }
