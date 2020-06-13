@@ -10,6 +10,8 @@ import net.minecraft.util.text.ITextComponent
 interface IMessageParser {
     /**
      * Parses the message and changes message.
+     * @param sender player who sent a message.
+     * @param message message represented as [ITextComponent].
      * @return ready to sent message as string.
      * @since 2.0.0.
      */
