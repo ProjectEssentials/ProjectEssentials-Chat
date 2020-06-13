@@ -27,7 +27,6 @@ data class ChatSettingsConfigurationModel(
         var blockedWordsMask: String = "*beep*",
         var maxMessageLength: Int = 128,
         var messagingSlowMode: Int = -1,
-        var advertisingAllowed: Boolean = false,
         var advertisingRegex: String = "((?:[a-z0-9]{2,}:\\/\\/)?(?:(?:[0-9]{1,3}\\.){3}[0-9]{1,3}|(?:[-\\w_]{1,}\\.[a-z]{2,}?))(?::[0-9]{1,5})?.*?(?=[!\"\u00A7 \n]|$))"
     )
 
