@@ -1,9 +1,10 @@
-package com.mairwunnx.projectessentials.chat.models
+package com.mairwunnx.projectessentials.chat.impl.configurations
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatModel(
+data class ChatSettingsConfigurationModel(
+    val filters: Filters = Filters(),
     var moderation: Moderation = Moderation(),
     var messaging: Messaging = Messaging(),
     var mentions: Mentions = Mentions(),
@@ -11,14 +12,21 @@ data class ChatModel(
     var mute: Mute = Mute()
 ) {
     @Serializable
+    data class Filters(
+        var filterWords: Boolean = false,
+        var filterChars: Boolean = false,
+        var filterAdvertising: Boolean = false
+    )
+
+    @Serializable
     data class Moderation(
-        var blockedWords: MutableList<String> = mutableListOf("fuck", "shit"),
-        var blockedChars: List<String> = mutableListOf(),
+        var blockedWords: MutableList<String> = mutableListOf("fuck", "ass"),
+        var blockedCharsRegex: String = "",
+        var allowedCharsRegex: String = ".*",
         var modifyBlockedWords: Boolean = true,
-        var blockedWordsMask: String = "**beep**",
+        var blockedWordsMask: String = "*beep*",
         var maxMessageLength: Int = 128,
-        var messagingCooldownEnabled: Boolean = true,
-        var messagingCooldown: Int = 5,
+        var messagingSlowMode: Int = -1,
         var advertisingAllowed: Boolean = false,
         var advertisingRegex: String = "((?:[a-z0-9]{2,}:\\/\\/)?(?:(?:[0-9]{1,3}\\.){3}[0-9]{1,3}|(?:[-\\w_]{1,}\\.[a-z]{2,}?))(?::[0-9]{1,5})?.*?(?=[!\"\u00A7 \n]|$))"
     )
@@ -46,7 +54,8 @@ data class ChatModel(
     data class Events(
         var joinMessageEnabled: Boolean = true,
         var leftMessageEnabled: Boolean = true,
-        var advancementsEnabled: Boolean = true
+        var advancementsEnabled: Boolean = true,
+        var deathMessagesEnabled: Boolean = true
     )
 
     @Serializable
