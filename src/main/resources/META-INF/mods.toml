@@ -4,32 +4,32 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
 
 [[mods]]
     modId="project_essentials_chat"
-    version="1.14.4-1.1.1"
+    version="${file.jarVersion}"
     displayName="Project Essentials Chat"
-    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.14.4/update.json"
-    displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat"
-    credits="Thanks JetBrains for Intellij IDEA license!"
+    credits="hujle, KuroNoSeiHai, JetBrains, all forge developers, and other contributors"
     authors="MairwunNx (Pavel Erokhin)"
+    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Chat/MC-1.14.4/updatev2.json"
+    displayURL="https://github.com/MairwunNx/ProjectEssentials-Chat"
     description='''
-    Project Essentials Chat - additional module for Essentials;
-    Just add ability to controlling chat actions on server and client.
+    A lightweight chat manager for forge servers, with simple anti-spam and anti-advertising
+    and anti-swearing protection, mutes, ranged chat, and other stuff.
     '''
 
-[[dependencies.projectessentialschat]]
+[[dependencies.project_essentials_chat]]
     modId="project_essentials_core"
     mandatory=true
-    versionRange="[1,)"
+    versionRange="[2,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.projectessentialschat]]
+[[dependencies.project_essentials_chat]]
     modId="forge"
     mandatory=true
     versionRange="[28,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.projectessentialschat]]
+[[dependencies.project_essentials_chat]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.14.4]"
