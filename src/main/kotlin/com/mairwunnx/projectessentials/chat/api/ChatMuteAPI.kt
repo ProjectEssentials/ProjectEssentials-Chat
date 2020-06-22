@@ -5,6 +5,7 @@ import com.mairwunnx.projectessentials.chat.impl.configurations.MutedPlayersConf
 import com.mairwunnx.projectessentials.chat.mutedPlayersConfiguration
 import java.time.Duration
 import java.time.ZonedDateTime
+import java.time.ZonedDateTime.now
 
 /**
  * This class contains API for working with
@@ -37,7 +38,7 @@ object ChatMuteAPI {
      */
     fun isInMute(name: String, uuid: String) = getMutePlayer(name, uuid)?.let {
         (Duration.between(
-            ZonedDateTime.parse(it.timeEnd), ZonedDateTime.now()
+            ZonedDateTime.parse(it.timeEnd), now()
         ).toMillis() >= 1).let { isExpired ->
             if (isExpired) {
                 getMutePlayers().toMutableList().removeIf { entry ->
@@ -61,8 +62,9 @@ object ChatMuteAPI {
      * @return true if player removed.
      * @since 2.0.0.
      */
-    fun unmute(name: String, uuid: String) =
-        getMutePlayers().toMutableList().removeIf { it.name == name || it.uuid == uuid }
+    fun unmute(
+        name: String, uuid: String
+    ) = getMutePlayers().toMutableList().removeIf { it.name == name || it.uuid == uuid }
 
     /**
      * Just unmutes all muted players.
@@ -85,8 +87,7 @@ object ChatMuteAPI {
                 name, uuid,
                 mutedBy?.let { it } ?: "#server",
                 reason?.let { it } ?: chatSettingsConfiguration.mute.defaultReason,
-                false,
-                null, null
+                false, null, null
             )
         ).let { return true }
     }
@@ -109,9 +110,7 @@ object ChatMuteAPI {
                 name, uuid,
                 mutedBy?.let { it } ?: "#server",
                 reason?.let { it } ?: chatSettingsConfiguration.mute.defaultReason,
-                true,
-                ZonedDateTime.now().toString(),
-                ZonedDateTime.now().plusSeconds(duration / 20).toString()
+                true, now().toString(), now().plusSeconds(duration / 20).toString()
             )
         ).let { return true }
     }
