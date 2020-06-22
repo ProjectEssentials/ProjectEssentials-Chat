@@ -8,7 +8,7 @@ import java.util.*
  * process in chat.
  * @since 2.0.0.
  */
-object ChatVariableStoreAPI {
+object ChatVariableAPI {
     private val store = Collections.synchronizedList<IChatVariable>(mutableListOf())
 
     /**
