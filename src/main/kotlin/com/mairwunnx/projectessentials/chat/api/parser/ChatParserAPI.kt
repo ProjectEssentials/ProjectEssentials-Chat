@@ -1,6 +1,6 @@
 package com.mairwunnx.projectessentials.chat.api.parser
 
-import com.mairwunnx.projectessentials.chat.impl.DefaultMessageParser
+import com.mairwunnx.projectessentials.chat.impl.parsers.DefaultMessageParser
 
 /**
  * Class for interacting with active chat parser.
