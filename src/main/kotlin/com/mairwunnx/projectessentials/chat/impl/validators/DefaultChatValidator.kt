@@ -1,19 +1,10 @@
-package com.mairwunnx.projectessentials.chat.api
+package com.mairwunnx.projectessentials.chat.impl.validators
 
+import com.mairwunnx.projectessentials.chat.api.validator.IChatValidator
 import com.mairwunnx.projectessentials.chat.chatSettingsConfiguration
 
-/**
- * This class contains API for working with
- * chat validations.
- * @since 2.0.0.
- */
-object ChatValidationAPI {
-    /**
-     * @param message message to check.
-     * @return true if message contains restricted word.
-     * @since 2.0.0.
-     */
-    fun isContainsBlockedWord(message: String): Boolean {
+object DefaultChatValidator : IChatValidator {
+    override fun isContainsBlockedWord(message: String): Boolean {
         if (!chatSettingsConfiguration.filters.filterWords) return false
         // @formatter:off
         return chatSettingsConfiguration.moderation.blockedWords.filter {
@@ -24,12 +15,7 @@ object ChatValidationAPI {
         // @formatter:on
     }
 
-    /**
-     * @param message message to check.
-     * @return true if message contains blocked chars.
-     * @since 2.0.0.
-     */
-    fun isContainsBlockedChars(message: String): Boolean {
+    override fun isContainsBlockedChars(message: String): Boolean {
         if (!chatSettingsConfiguration.filters.filterChars) return false
         // @formatter:off
         with(chatSettingsConfiguration.moderation.blockedCharsRegex) {
@@ -41,22 +27,12 @@ object ChatValidationAPI {
         // @formatter:on
     }
 
-    /**
-     * @param message message to check.
-     * @return true if message exceeds max message lenght.
-     * @since 2.0.0.
-     */
-    fun isMessageExceeds(message: String): Boolean {
+    override fun isMessageExceeds(message: String): Boolean {
         if (!chatSettingsConfiguration.filters.filterExceeds) return false
         return message.count() > chatSettingsConfiguration.moderation.maxMessageLength
     }
 
-    /**
-     * @param message message to check.
-     * @return true if message contains advertising.
-     * @since 2.0.0.
-     */
-    fun isContainsAdvertising(message: String): Boolean {
+    override fun isContainsAdvertising(message: String): Boolean {
         if (!chatSettingsConfiguration.filters.filterAdvertising) return false
         // @formatter:off
         with(chatSettingsConfiguration.moderation.advertisingRegex) {
@@ -68,12 +44,7 @@ object ChatValidationAPI {
         // @formatter:on
     }
 
-    /**
-     * @param message message to check.
-     * @return true if message targets to global chat.
-     * @since 2.0.0.
-     */
-    fun isGlobalChat(message: String): Boolean {
+    override fun isGlobalChat(message: String): Boolean {
         if (!chatSettingsConfiguration.messaging.enableRangedChat) return true
         return message.startsWith("!")
     }
