@@ -9,7 +9,9 @@ data class ChatSettingsConfigurationModel(
     var messaging: Messaging = Messaging(),
     var mentions: Mentions = Mentions(),
     var events: Events = Events(),
-    var mute: Mute = Mute()
+    var mute: Mute = Mute(),
+    val prefixes: Prefixes = Prefixes(),
+    val suffixes: Suffixes = Suffixes()
 ) {
     @Serializable
     data class Filters(
@@ -67,4 +69,10 @@ data class ChatSettingsConfigurationModel(
         var notifyAllAboutUnmuteAll: Boolean = true,
         var replaceNativeMeCommand: Boolean = false
     )
+
+    @Serializable
+    data class Prefixes(val map: MutableMap<String, String> = mutableMapOf())
+
+    @Serializable
+    data class Suffixes(val map: MutableMap<String, String> = mutableMapOf())
 }
