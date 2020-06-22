@@ -9,6 +9,7 @@ import java.time.ZonedDateTime
 /**
  * This class contains API for working with
  * chat player mutes.
+ *
  * @since 2.0.0.
  */
 object ChatMuteAPI {
