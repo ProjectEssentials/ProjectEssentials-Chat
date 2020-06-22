@@ -3,7 +3,7 @@ package com.mairwunnx.projectessentials.chat.impl.handlers
 import com.mairwunnx.projectessentials.chat.chatSettingsConfiguration
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 
-object ReceiveMessageHandler {
+internal object ReceiveMessageHandler {
     fun handle(event: ClientChatReceivedEvent) {
         fun cancelIf(key: String) {
             if ("key='$key" !in event.message.toString()) return
