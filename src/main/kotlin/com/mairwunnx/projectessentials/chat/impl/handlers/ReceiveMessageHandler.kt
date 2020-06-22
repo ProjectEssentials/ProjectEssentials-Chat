@@ -6,9 +6,8 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 object ReceiveMessageHandler {
     fun handle(event: ClientChatReceivedEvent) {
         fun cancelIf(key: String) {
-            if ("key='$key" in event.message.toString()) {
-                { event.isCanceled = true }.let { return }
-            }
+            if ("key='$key" !in event.message.toString()) return
+            { event.isCanceled = true }.let { return }
         }
         if (!chatSettingsConfiguration.events.joinMessageEnabled) cancelIf("multiplayer.player.joined'")
         if (!chatSettingsConfiguration.events.leftMessageEnabled) cancelIf("multiplayer.player.left'")
