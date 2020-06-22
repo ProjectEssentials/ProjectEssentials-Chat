@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentials.chat.impl
+package com.mairwunnx.projectessentials.chat.impl.parsers
 
 import com.mairwunnx.projectessentials.chat.api.parser.IMessageParser
 import net.minecraft.entity.player.ServerPlayerEntity
