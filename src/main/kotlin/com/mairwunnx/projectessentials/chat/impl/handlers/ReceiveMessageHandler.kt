@@ -1,17 +1,18 @@
 package com.mairwunnx.projectessentials.chat.impl.handlers
 
-import com.mairwunnx.projectessentials.chat.chatSettingsConfiguration
 import net.minecraftforge.client.event.ClientChatReceivedEvent
+import com.mairwunnx.projectessentials.chat.chatSettingsConfiguration as config
 
 internal object ReceiveMessageHandler {
+    private inline fun ClientChatReceivedEvent.cancelIf(key: String, action: () -> Unit) {
+        if ("key='$key" !in this.message.toString()) return
+        run { this.isCanceled = true }.also { action() }
+    }
+
     fun handle(event: ClientChatReceivedEvent) {
-        fun cancelIf(key: String) {
-            if ("key='$key" !in event.message.toString()) return
-            { event.isCanceled = true }.let { return }
-        }
-        if (!chatSettingsConfiguration.events.joinMessageEnabled) cancelIf("multiplayer.player.joined'")
-        if (!chatSettingsConfiguration.events.leftMessageEnabled) cancelIf("multiplayer.player.left'")
-        if (!chatSettingsConfiguration.events.advancementsEnabled) cancelIf("chat.type.advancement'")
-        if (!chatSettingsConfiguration.events.deathMessagesEnabled) cancelIf("death.")
+        if (!config.events.joinMessageEnabled) event.cancelIf("multiplayer.player.joined'") { return }
+        if (!config.events.leftMessageEnabled) event.cancelIf("multiplayer.player.left'") { return }
+        if (!config.events.advancementsEnabled) event.cancelIf("chat.type.advancement'") { return }
+        if (!config.events.deathMessagesEnabled) event.cancelIf("death.") { return }
     }
 }
