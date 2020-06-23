@@ -10,10 +10,10 @@ object TeamVariable : IChatVariable {
     override fun process(player: ServerPlayerEntity) =
         { player.team?.color ?: TextFormatting.RESET }.let {
             if (it() == TextFormatting.RESET) {
-                return@let TextComponentUtils.toTextComponent { player.team!!.name }.formattedText
+                return@let TextComponentUtils.toTextComponent { player.team!!.name }
             }
             return@let TextComponentUtils.toTextComponent {
                 player.team!!.name
-            }.applyTextStyle(player.team!!.color).formattedText
+            }.applyTextStyle(player.team!!.color)
         }!!
 }
