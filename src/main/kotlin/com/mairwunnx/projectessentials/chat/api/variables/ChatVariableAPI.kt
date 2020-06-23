@@ -36,5 +36,5 @@ object ChatVariableAPI {
      * @return all registered chat variables.
      * @since 2.0.0.
      */
-    fun all() = store.toList()
+    fun all() = store.toList().asSequence()
 }
