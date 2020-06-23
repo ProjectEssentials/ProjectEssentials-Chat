@@ -32,6 +32,6 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Chat/iss
 [[dependencies.project_essentials_chat]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="[1,)"
     ordering="NONE"
     side="BOTH"
