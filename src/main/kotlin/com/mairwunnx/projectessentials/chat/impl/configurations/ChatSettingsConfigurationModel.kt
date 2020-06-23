@@ -23,6 +23,7 @@ data class ChatSettingsConfigurationModel(
 
     @Serializable
     data class Moderation(
+        var colorsAllowed: Boolean = false,
         var blockedWords: MutableList<String> = mutableListOf("fuck", "ass"),
         var blockedCharsRegex: String = "",
         var allowedCharsRegex: String = ".*",
