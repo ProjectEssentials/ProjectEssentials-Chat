@@ -36,22 +36,24 @@ internal class DefaultMessageParser : IMessageParser {
                         }
                     } else if (value in ChatVariableAPI.all().map { "%${it.variable}%" }) {
                         component.appendSibling(TextComponentUtils.toTextComponent { builder.toString() })
-                        if (value == "%message%") {
-                            component.appendSibling(getMessage(sender, message))
-                        } else {
-                            component.appendSibling(
-                                ChatVariableAPI.all().find {
-                                    it.variable == value.drop(1).dropLast(1)
-                                }?.process(sender) ?: TextComponentUtils.toTextComponent { "" }
-                            ).also { builder.clear() }
-                        }
+                        component.appendSibling(
+                            ChatVariableAPI.all().find {
+                                it.variable == value.drop(1).dropLast(1)
+                            }?.process(sender) ?: TextComponentUtils.toTextComponent { "" }
+                        ).also { builder.clear() }
+                    } else if (value == "%message%") {
+                        component.appendSibling(getMessage(sender, message))
                     } else builder.append(String.empty)
                 }.run {
                     component.appendSibling(
                         TextComponentUtils.toTextComponent { builder.toString() }
                     ).also { builder.clear() }
+                    println(component.unformattedComponentText)
                 }
-            }.let { component }
+            }.let {
+                println("Result: ${component.unformattedComponentText}")
+                component
+            }
         }
     }
 
