@@ -1,6 +1,7 @@
 package com.mairwunnx.projectessentials.chat.api.variables
 
 import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.util.text.ITextComponent
 
 /**
  * Interface for chat variable, (basically for replacing
@@ -19,5 +20,5 @@ interface IChatVariable {
      * @return variable result.
      * @since 2.0.0.
      */
-    fun process(player: ServerPlayerEntity): String
+    fun process(player: ServerPlayerEntity): ITextComponent
 }
