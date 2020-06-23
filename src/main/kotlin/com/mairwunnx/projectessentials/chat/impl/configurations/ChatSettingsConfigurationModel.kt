@@ -36,10 +36,10 @@ data class ChatSettingsConfigurationModel(
 
     @Serializable
     data class Messaging(
-        var messageGlobalPattern: String = "&8[&2GLOBAL&8] &a┃ &8[&6%player&8]&7: &f%message",
-        var messageLocalPattern: String = "&8[&cLOCAL&8] &4┃ &8[&7%player&8]&7: &7§o%message",
-        var messageCommonPattern: String = "&8[&7%player&8]&7: &f%message",
-        var enableRangedChat: Boolean = true,
+        var messageGlobalPattern: String = "&8[&2GLOBAL&8] &a┃ &8[&6%player%&8]&7: &f%message%",
+        var messageLocalPattern: String = "&8[&cLOCAL&8] &4┃ &8[&7%player%&8]&7: &7§o%message%",
+        var messageCommonPattern: String = "&8[&7%player%&8]&7: &f%message%",
+        var enableRangedChat: Boolean = false,
         var localChatRange: Int = 100,
         var chatEnabled: Boolean = true
     )
