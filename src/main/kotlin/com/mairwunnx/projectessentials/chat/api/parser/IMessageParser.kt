@@ -11,9 +11,9 @@ interface IMessageParser {
     /**
      * Parses the message and changes message.
      * @param sender player who sent a message.
-     * @param message message represented as [ITextComponent].
+     * @param message message represented as [String].
      * @return ready to sent message as string.
      * @since 2.0.0.
      */
-    fun parse(sender: ServerPlayerEntity, message: ITextComponent): String
+    fun parse(sender: ServerPlayerEntity, message: String): ITextComponent
 }
