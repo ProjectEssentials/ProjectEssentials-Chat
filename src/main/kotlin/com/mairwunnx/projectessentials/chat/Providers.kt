@@ -1,6 +1,5 @@
 package com.mairwunnx.projectessentials.chat
 
-import com.mairwunnx.projectessentials.chat.commands.*
 import com.mairwunnx.projectessentials.chat.impl.ModuleObject
 import com.mairwunnx.projectessentials.chat.impl.configurations.ChatSettingsConfiguration
 import com.mairwunnx.projectessentials.chat.impl.configurations.MutedPlayersConfiguration
@@ -8,12 +7,12 @@ import com.mairwunnx.projectessentials.chat.impl.configurations.MutedPlayersConf
 internal val providers = listOf(
     ChatSettingsConfiguration::class.java,
     MutedPlayersConfiguration::class.java,
-    ModuleObject::class.java,
-    ClearChatCommand::class.java,
-    MuteCommand::class.java,
-    UnmuteCommand::class.java,
-    UnmuteAllCommand::class.java,
-    MutedPlayersCommand::class.java
+    ModuleObject::class.java//,
+//    ClearChatCommand::class.java,
+//    MuteCommand::class.java,
+//    UnmuteCommand::class.java,
+//    UnmuteAllCommand::class.java,
+//    MutedPlayersCommand::class.java
     // PrefixCommand::class.java,
     // SuffixCommand::class.java
 )
