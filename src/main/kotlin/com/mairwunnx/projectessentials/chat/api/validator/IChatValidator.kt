@@ -22,6 +22,13 @@ interface IChatValidator {
 
     /**
      * @param message message to check.
+     * @return true if message contains allowed chars.
+     * @since 2.0.0.
+     */
+    fun isContainsAllowedChars(message: String): Boolean
+
+    /**
+     * @param message message to check.
      * @return true if message exceeds max message lenght.
      * @since 2.0.0.
      */
