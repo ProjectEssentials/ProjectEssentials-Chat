@@ -22,13 +22,13 @@ object ChatVariableAPI {
      */
     fun add(variable: IChatVariable) = synchronized(store) {
         store.find { it.variable == variable.variable }?.let {
-            store.add(variable).also {
-                getLogger().debug("Chat variable (${variable.variable}) added.")
-            }.let { return@synchronized }
-        } ?: run {
             getLogger().error(
                 "Chat variable `${variable.javaClass.canonicalName}` (${variable.variable}) already exist."
             )
+        } ?: run {
+            store.add(variable).also {
+                getLogger().debug("Chat variable (${variable.variable}) added.")
+            }.let { return@synchronized }
         }
     }
 
