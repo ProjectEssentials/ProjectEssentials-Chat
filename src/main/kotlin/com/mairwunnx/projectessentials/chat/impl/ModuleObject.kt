@@ -2,6 +2,7 @@
 
 package com.mairwunnx.projectessentials.chat.impl
 
+import com.mairwunnx.projectessentials.chat.api.variables.ChatVariableAPI
 import com.mairwunnx.projectessentials.chat.impl.handlers.ChatMessageHandler
 import com.mairwunnx.projectessentials.chat.impl.handlers.ReceiveMessageHandler
 import com.mairwunnx.projectessentials.chat.localizations
@@ -21,7 +22,7 @@ internal class ModuleObject : IModule {
     override val name = this::class.java.`package`.implementationTitle.split(" ").last()
     override val version = this::class.java.`package`.implementationVersion!!
     override val loadIndex = 7
-    override fun init() = Unit
+    override fun init() = variables.forEach(ChatVariableAPI::add)
 
     private val logger = LogManager.getLogger()
 
