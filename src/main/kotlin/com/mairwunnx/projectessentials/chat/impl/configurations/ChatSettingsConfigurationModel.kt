@@ -51,7 +51,9 @@ data class ChatSettingsConfigurationModel(
         var mentionWithSound: Boolean = true,
         var mentionMessage: String = "&7you are mentioned by &l&7%player&7 player, in the chat.",
         var mentionAtFormat: String = "&c",
-        var mentionNameFormat: String = "&b"
+        var mentionNameFormat: String = "&b",
+        var mentionsAllEnabled: Boolean = true,
+        var mentionsAllLiteral: String = "all"
     )
 
     @Serializable
