@@ -27,6 +27,18 @@ object DefaultChatValidator : IChatValidator {
         // @formatter:on
     }
 
+    override fun isContainsAllowedChars(message: String): Boolean {
+        if (!chatSettingsConfiguration.filters.filterChars) return true
+        // @formatter:off
+        with(chatSettingsConfiguration.moderation.allowedCharsRegex) {
+            return (
+                message.contains(Regex(this, RegexOption.IGNORE_CASE)) ||
+                message.matches(Regex(this, RegexOption.IGNORE_CASE))
+            )
+        }
+        // @formatter:on
+    }
+
     override fun isMessageExceeds(message: String): Boolean {
         if (!chatSettingsConfiguration.filters.filterExceeds) return false
         return message.count() > chatSettingsConfiguration.moderation.maxMessageLength
